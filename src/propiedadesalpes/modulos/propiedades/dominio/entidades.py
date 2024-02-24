@@ -1,13 +1,15 @@
 import array
 from datetime import datetime
-from propiedadesalpes.seedwork.dominio.entidades import Entidad
+import uuid
+from src.propiedadesalpes.seedwork.dominio.entidades import Entidad, AgregacionRaiz
 from dataclasses import dataclass, field
 
 from .enumerations import Estado, TipoPropiedad
-from .objetos_valor import Nombre, Email, Descripcion, Direccion, Location
+from .objetos_valor import Nombre, Email, Descripcion, Direccion
 
 @dataclass
-class Propiedad(Entidad):
+class Propiedad(AgregacionRaiz):
+    id_propiedad = uuid.UUID(hash=True, default=None)
     nombre: Nombre = field(default_factory=Nombre)
     descripcion: Descripcion = field(default_factory=Descripcion)
     direccion: Direccion = field(default_factory=Direccion)
@@ -22,7 +24,7 @@ class Propiedad(Entidad):
     baños: int = 1
     estacionamientos: int = 0
     superficie: int = 0
-    imagen: array = []
+    imagen: list[str] = field(default_factory=list[str])
     
 
 
