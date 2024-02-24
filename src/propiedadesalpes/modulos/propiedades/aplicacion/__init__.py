@@ -1,4 +1,4 @@
 from pydispatch import dispatcher
-from .handlers import HandlerReservaDominio
+from .handlers import HandlerPropiedadDominio
 
-dispatcher.connect(HandlerReservaDominio.handle_reserva_creada, signal='ReservaCreadaDominio')
+dispatcher.connect(HandlerPropiedadDominio.handle_propiedad_creada, signal='PropiedadCreadaDominio')

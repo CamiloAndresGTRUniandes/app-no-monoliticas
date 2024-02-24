@@ -1,7 +1,7 @@
 
 
-from propiedadesalpes.modulos.propiedades.dominio.eventos import PropiedadCreada
-from propiedadesalpes.seedwork.aplicacion.handlers import Handler
+from src.propiedadesalpes.modulos.propiedades.dominio.eventos import PropiedadCreada
+from src.propiedadesalpes.seedwork.aplicacion.handlers import Handler
 
 class HandlerPropiedadDominio(Handler):
 
