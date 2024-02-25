@@ -6,10 +6,9 @@ encargados de la transformación entre formatos de dominio y DTOs
 """
 
 from src.propiedadesalpes.seedwork.dominio.repositorios import Mapeador
-from src.propiedadesalpes.modulos.propiedades.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
 from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
 from .dto import Propiedad as PropiedadDTO
-from .dto import Itinerario as ItinerarioDTO
+
 
     
 class MappeadorPropiedad(Mapeador):
@@ -26,7 +25,7 @@ class MappeadorPropiedad(Mapeador):
         propiedad_dto.fecha_creacion = entidad.fecha_creacion
         propiedad_dto.fecha_actualizacion = entidad.fecha_actualizacion
         propiedad_dto.habitaciones = entidad.habitaciones
-        propiedad_dto.baños = entidad.baños
+        propiedad_dto.banos = entidad.banos
         propiedad_dto.precio = entidad.precio
         propiedad_dto.superficie = entidad.superficie
         propiedad_dto.direccion = str(entidad.direccion)
@@ -46,6 +45,9 @@ class MappeadorPropiedad(Mapeador):
         propiedad.superficie= dto.superficie
         propiedad.direccion=str(dto.direccion),
         propiedad.imagen=str(dto.imagen),
-        propiedad.baños=dto.baños
+        propiedad.banos=dto.banos
 
         return propiedad
+    
+    def obtener_tipo(self) -> type:
+        return Propiedad.__class__

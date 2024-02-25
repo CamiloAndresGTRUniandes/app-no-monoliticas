@@ -1,4 +1,3 @@
-from propiedadesalpes.seedwork.aplicacion.dto import DTO
 from src.propiedadesalpes.seedwork.aplicacion.dto import Mapeador as AppMap
 from src.propiedadesalpes.seedwork.dominio.repositorios import Mapeador as RepMap
 from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
@@ -9,19 +8,56 @@ from datetime import datetime
 class MapeadorPropiedadDTOJson(AppMap):
     def externo_a_dto(self, externo: dict) -> PropiedadDTO:
         propiedad_dto = PropiedadDTO()
-        propiedad_dto.nombre = externo['nombre']
-        propiedad_dto.descripcion = externo['descripcion']
-        propiedad_dto.direccion = str(externo['direccion'])
-        propiedad_dto.precio = externo['precio']
-        propiedad_dto.estado = externo['estado']
-        propiedad_dto.imagen = str(externo['imagen'])
-        propiedad_dto.fecha_creacion = externo['fecha_creacion']
-        propiedad_dto.fecha_actualizacion = externo['fecha_actualizacion']
-        propiedad_dto.habitaciones = externo['habitaciones']
-        propiedad_dto.baños = externo['baños']
+        propiedad_dto.nombre = externo.get("nombre")
+        propiedad_dto.descripcion = externo.get("descripcion")
+        propiedad_dto.direccion = externo.get("direccion")
+        propiedad_dto.precio = externo.get("precio")
+        propiedad_dto.estado = externo.get("estado")
+        propiedad_dto.imagen = externo.get("imagen")
+        propiedad_dto.fecha_creacion = datetime.now()
+        propiedad_dto.fecha_actualizacion = datetime.now()
+        propiedad_dto.habitaciones = externo.get("habitaciones")
+        propiedad_dto.banos = externo.get("banos")
+        print(f'Este es el DTO XXXXXXXXXXXXXXXXXXXXXXXXX {propiedad_dto}')
         return propiedad_dto
     
     def dto_a_externo(self, dto: PropiedadDTO) -> dict:
         return dto.__dict__
     
+
+class MapeadorPropiedad(RepMap):
+    _FORMATO_FECHA = "%Y-%m-%dT%H:%M:%SZ"
+    def obtener_tipo(self) -> type:
+        return Propiedad.__class__ 
     
+    def entidad_a_dto(self, entidad: Propiedad) -> PropiedadDTO:
+        propiedad_dto = PropiedadDTO()
+        propiedad_dto.nombre = entidad.nombre
+        propiedad_dto.descripcion = entidad.descripcion
+        propiedad_dto.tipo = entidad.tipo
+        propiedad_dto.estado = entidad.estado
+        propiedad_dto.imagen = str(entidad.imagen)
+        propiedad_dto.fecha_creacion = entidad.fecha_creacion
+        propiedad_dto.fecha_actualizacion = entidad.fecha_actualizacion
+        propiedad_dto.habitaciones = entidad.habitaciones
+        propiedad_dto.banos = entidad.banos
+        propiedad_dto.precio = entidad.precio
+        propiedad_dto.superficie = entidad.superficie
+        propiedad_dto.direccion = str(entidad.direccion)
+        return propiedad_dto
+    
+    def dto_a_entidad(self, dto: PropiedadDTO) -> Propiedad:
+        propiedad = Propiedad()
+        propiedad.nombre=dto.nombre, 
+        propiedad.descripcion=dto.descripcion, 
+        propiedad.tipo=dto.tipo, 
+        propiedad.estado=dto.estado, 
+        propiedad.fecha_creacion=dto.fecha_creacion, 
+        propiedad.fecha_actualizacion=dto.fecha_actualizacion, 
+        propiedad.habitaciones=dto.habitaciones, 
+        propiedad.precio= dto.precio, 
+        propiedad.superficie= dto.superficie
+        propiedad.direccion=str(dto.direccion),
+        propiedad.imagen=str(dto.imagen),
+        propiedad.banos =dto.banos
+        return propiedad

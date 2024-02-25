@@ -15,7 +15,7 @@ class PropiedadCreada(EventoDominio):
     direccion: str = None
     precio: float = None
     habitaciones: int = None
-    baños: int = None
+    banos: int = None
     estacionamientos: int = None
     superficie: int = None
     imagen: array = None

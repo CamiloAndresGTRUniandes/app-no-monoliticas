@@ -1,5 +1,5 @@
-from propiedadesalpes.config.db import db
-from propiedadesalpes.seedwork.infraestructura.uow import UnidadTrabajo, Batch
+from src.propiedadesalpes.config.db import db
+from src.propiedadesalpes.seedwork.infraestructura.uow import UnidadTrabajo, Batch
 
 class UnidadTrabajoSQLAlchemy(UnidadTrabajo):
 
@@ -26,6 +26,7 @@ class UnidadTrabajoSQLAlchemy(UnidadTrabajo):
     def commit(self):
         for batch in self.batches:
             lock = batch.lock
+            print(f"Batch XXXXXXXXXXXXXXXXXXXXX {batch}")
             batch.operacion(*batch.args, **batch.kwargs)
 
         db.session.commit()

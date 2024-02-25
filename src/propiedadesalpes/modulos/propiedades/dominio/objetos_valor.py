@@ -4,13 +4,12 @@ En este archivo usted encontrará los objetos valor del dominio de cliente
 
 """
 
-from propiedadesalpes.seedwork.dominio.objetos_valor import ObjetoValor, Ciudad
+from src.propiedadesalpes.seedwork.dominio.objetos_valor import ObjetoValor, Ciudad
 from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Nombre(ObjetoValor):
-    nombres: str
-    apellidos: str
+    nombre: str
 
 @dataclass(frozen=True)
 class Email(ObjetoValor):

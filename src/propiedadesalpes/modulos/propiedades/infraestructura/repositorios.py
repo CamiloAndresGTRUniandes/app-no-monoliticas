@@ -5,22 +5,25 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 
 """
 
-from propiedadesalpes.config.db import db
-from propiedadesalpes.modulos.propiedades.dominio.repositorios import RepositorioPropiedades
-from propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
-from propiedadesalpes.modulos.propiedades.dominio.fabricas import FabricaPropiedades
-from .dto import Reserva as ReservaDTO
-from .mapeadores import MapeadorReserva
+from src.propiedadesalpes.config.db import db
+from src.propiedadesalpes.modulos.propiedades.dominio.repositorios import RepositorioPropiedades
+from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
+from src.propiedadesalpes.modulos.propiedades.dominio.fabricas import FabricaPropiedades
+from .dto import Propiedad as PropiedadDTO
+from .mapeadores import MappeadorPropiedad
 from uuid import UUID
 
 class RepositorioPropiedadesPostgresSQL(RepositorioPropiedades):
     def __init__(self):
-        self._fabrica_vuelos: FabricaPropiedades = FabricaPropiedades()
+        self._fabrica_propiedades: FabricaPropiedades = FabricaPropiedades()
 
     def agregar(self, propiedad: Propiedad):
-        reserva_dto = self.fabrica_vuelos.crear_objeto(propiedad, MapeadorReserva())
+        reserva_dto = self._fabrica_propiedades.crear_objeto(propiedad, MappeadorPropiedad())
         db.session.add(reserva_dto)
     
     def obtener_todos(self) -> list[Propiedad]:
         propiedades_list = db.session.query(Propiedad).all()
         return propiedades_list
+    
+    def obtener_tipo(self) -> type:
+        return Propiedad.__class__

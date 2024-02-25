@@ -1,8 +1,8 @@
 import pulsar
 from pulsar.schema import *
 
-from propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.eventos import EventoReservaCreada, ReservaCreadaPayload
-from propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearReserva, ComandoCrearReservaPayload
+from propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada, PropiedadCreadaPayload
+from propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad, ComandoCrearPropiedadPayload
 from propiedadesalpes.seedwork.infraestructura import utils
 
 import datetime
@@ -15,26 +15,26 @@ def unix_time_millis(dt):
 class Despachador:
     def _publicar_mensaje(self, mensaje, topico, schema):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        publicador = cliente.create_producer(topico, schema=AvroSchema(EventoReservaCreada))
+        publicador = cliente.create_producer(topico, schema=AvroSchema(EventoPropiedadCreada))
         publicador.send(mensaje)
         cliente.close()
 
     def publicar_evento(self, evento, topico):
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
-        payload = ReservaCreadaPayload(
+        payload = PropiedadCreadaPayload(
             id_reserva=str(evento.id_reserva), 
             id_cliente=str(evento.id_cliente), 
             estado=str(evento.estado), 
             fecha_creacion=int(unix_time_millis(evento.fecha_creacion))
         )
-        evento_integracion = EventoReservaCreada(data=payload)
-        self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoReservaCreada))
+        evento_integracion = EventoPropiedadCreada(data=payload)
+        self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoPropiedadCreada))
 
     def publicar_comando(self, comando, topico):
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
-        payload = ComandoCrearReservaPayload(
+        payload = ComandoCrearPropiedadPayload(
             id_usuario=str(comando.id_usuario)
             # agregar itinerarios
         )
-        comando_integracion = ComandoCrearReserva(data=payload)
-        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearReserva))
+        comando_integracion = ComandoCrearPropiedad(data=payload)
+        self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearPropiedad))
