@@ -18,8 +18,9 @@ class RepositorioPropiedadesPostgresSQL(RepositorioPropiedades):
         self._fabrica_propiedades: FabricaPropiedades = FabricaPropiedades()
 
     def agregar(self, propiedad: Propiedad):
-        reserva_dto = self._fabrica_propiedades.crear_objeto(propiedad, MappeadorPropiedad())
-        db.session.add(reserva_dto)
+            propiedad_dto = self._fabrica_propiedades.crear_objeto(propiedad, MappeadorPropiedad())
+            db.session.add(propiedad_dto)
+
     
     def obtener_todos(self) -> list[Propiedad]:
         propiedades_list = db.session.query(Propiedad).all()
@@ -27,3 +28,7 @@ class RepositorioPropiedadesPostgresSQL(RepositorioPropiedades):
     
     def obtener_tipo(self) -> type:
         return Propiedad.__class__
+    
+    def obtener_por_id(self, id: UUID) -> Propiedad:
+        propiedad_dto = db.session.query(PropiedadDTO).filter_by(id=str(id)).one()
+        return self._fabrica_propiedades.crear_objeto(propiedad_dto, MappeadorPropiedad())

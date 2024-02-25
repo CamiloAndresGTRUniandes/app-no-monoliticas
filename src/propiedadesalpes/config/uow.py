@@ -24,14 +24,16 @@ class UnidadTrabajoSQLAlchemy(UnidadTrabajo):
         return self._batches             
 
     def commit(self):
-        for batch in self.batches:
-            lock = batch.lock
-            print(f"Batch XXXXXXXXXXXXXXXXXXXXX {batch}")
-            batch.operacion(*batch.args, **batch.kwargs)
+        try:
+            for batch in self.batches:
+                lock = batch.lock
+                batch.operacion(*batch.args, **batch.kwargs)
 
-        db.session.commit()
+            db.session.commit()
 
-        super().commit()
+            super().commit()
+        except Exception as e:
+            print(f"ESTE ES EL ERROR DE UOW SSSSSSSSS {e}")
 
     def rollback(self, savepoint=None):
         if savepoint:

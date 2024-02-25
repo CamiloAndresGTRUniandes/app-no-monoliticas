@@ -16,35 +16,35 @@ class MappeadorPropiedad(Mapeador):
     def entidad_a_dto(self, entidad: Propiedad) -> PropiedadDTO:
         
         propiedad_dto = PropiedadDTO()
-        propiedad_dto.id = str(entidad.id)
+        propiedad_dto.id = entidad.id
         propiedad_dto.nombre = entidad.nombre
         propiedad_dto.descripcion = entidad.descripcion
         propiedad_dto.tipo = entidad.tipo
         propiedad_dto.estado = entidad.estado
-        propiedad_dto.imagen = str(entidad.imagen)
+        propiedad_dto.imagen = entidad.imagen
         propiedad_dto.fecha_creacion = entidad.fecha_creacion
         propiedad_dto.fecha_actualizacion = entidad.fecha_actualizacion
         propiedad_dto.habitaciones = entidad.habitaciones
         propiedad_dto.banos = entidad.banos
         propiedad_dto.precio = entidad.precio
         propiedad_dto.superficie = entidad.superficie
-        propiedad_dto.direccion = str(entidad.direccion)
+        propiedad_dto.direccion = entidad.direccion
         
         return propiedad_dto 
     
     def dto_a_entidad(self, dto: PropiedadDTO) -> Propiedad:
         propiedad = Propiedad()
-        propiedad.nombre=dto.nombre, 
-        propiedad.descripcion=dto.descripcion, 
-        propiedad.tipo=dto.tipo, 
-        propiedad.estado=dto.estado, 
-        propiedad.fecha_creacion=dto.fecha_creacion, 
-        propiedad.fecha_actualizacion=dto.fecha_actualizacion, 
-        propiedad.habitaciones=dto.habitaciones, 
-        propiedad.precio= dto.precio, 
+        propiedad.nombre=dto.nombre
+        propiedad.descripcion=dto.descripcion
+        propiedad.tipo=dto.tipo
+        propiedad.estado=dto.estado
+        propiedad.fecha_creacion=dto.fecha_creacion
+        propiedad.fecha_actualizacion=dto.fecha_actualizacion
+        propiedad.habitaciones=dto.habitaciones
+        propiedad.precio= dto.precio
         propiedad.superficie= dto.superficie
-        propiedad.direccion=str(dto.direccion),
-        propiedad.imagen=str(dto.imagen),
+        propiedad.direccion=dto.direccion
+        propiedad.imagen=dto.imagen
         propiedad.banos=dto.banos
 
         return propiedad

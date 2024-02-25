@@ -13,7 +13,6 @@ bp = api.crear_blueprint('propiedad', '/propiedad')
 def crear():
     try:
         propiedad_dict = request.json
-        print(f'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX{propiedad_dict}')
         map_propiedad = MapeadorPropiedadDTOJson()
         propiedad_dto = map_propiedad.externo_a_dto(propiedad_dict)
 
@@ -23,3 +22,13 @@ def crear():
         return map_propiedad.dto_a_externo(dto_final)
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
+    
+@bp.route('/<id>', methods=('GET',))
+def dar_propiedad(id=None):
+    if id:
+        sr = ServicioPropiedad()
+        map_propiedad = MapeadorPropiedadDTOJson()
+        
+        return map_propiedad.dto_a_externo(sr.obtener_propiedad_por_id(id))
+    else:
+        return [{'message': 'GET!'}]

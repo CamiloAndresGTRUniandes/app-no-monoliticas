@@ -42,6 +42,8 @@ def create_app():
     #app.config['TESTING'] = configuracion.get('TESTING')
 
      # Inicializa la DB
+
+
     from src.propiedadesalpes.config.db import init_db
     init_db(app)
 
