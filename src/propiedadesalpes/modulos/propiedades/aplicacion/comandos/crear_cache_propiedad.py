@@ -49,12 +49,30 @@ class CrearCachePropiedadHandler(CrearPropiedadBaseHandler):
             superficie=comando.superficie,
             imagen=comando.imagen)
         
-        propiedad : Propiedad = self._fabrica_propiedades.crear_objeto(propiedad_dto, MapeadorPropiedad())
-        propiedad.crear_propiedad(propiedad)
+        # propiedad : Propiedad = self._fabrica_propiedades.crear_objeto(propiedad_dto, MapeadorPropiedad())
+        # propiedad.crear_propiedad(propiedad)
 
-        map_propiedad = MapeadorPropiedad()
-        propiedad_ext = map_propiedad.entidad_a_externo(propiedad)
-
+        # map_propiedad = MapeadorPropiedad()
+        # propiedad_ext = map_propiedad.entidad_a_externo(propiedad)
+        # print(f"PROPIEDAD QUE SE ENVIA A JSON {str(propiedad_ext)}")
+        propiedad_ext = {
+            "id_propiedad": comando.id_propiedad,
+            "nombre": comando.nombre,
+            "descripcion": comando.descripcion,
+            "direccion": comando.direccion,
+            "precio": comando.precio,
+            "fecha_creacion": comando.fecha_creacion,
+            "fecha_actualizacion": comando.fecha_actualizacion,
+            "fecha_publicacion": comando.fecha_publicacion,
+            "fecha_baja": comando.fecha_baja,
+            "estado": comando.estado,
+            "tipo": comando.tipo,
+            "habitaciones": comando.habitaciones,
+            "banos": comando.banos,
+            "estacionamientos": comando.estacionamientos,
+            "superficie": comando.superficie,
+            "imagen": comando.imagen
+        }
         redis = RedisRepositorio()
         redis.lpush("propiedades", str(propiedad_ext))
 

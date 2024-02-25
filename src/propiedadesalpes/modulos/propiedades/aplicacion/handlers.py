@@ -9,9 +9,8 @@ class HandlerPropiedadDominio(Handler):
     @staticmethod
     def handle_propiedad_creada(evento):
         try:
-            Despachador.publicar_evento(Despachador(),evento, 'eventos-propiedad')
+            despachador = Despachador()
+            despachador.publicar_evento(evento, 'eventos-propiedad')
         except Exception as e:
             print(f"ERROR AL PUBLICAR {e}")
         
-
-    

@@ -2,7 +2,7 @@ import src.propiedadesalpes.seedwork.presentacion.api as api
 from src.propiedadesalpes.seedwork.dominio.excepciones import ExcepcionDominio
 from src.propiedadesalpes.modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedadDTOJson
 from src.propiedadesalpes.modulos.propiedades.aplicacion.comandos.crear_propiedad import CrearPropiedad
-#from propiedadesalpes.modulos.propiedades.aplicacion.queries.obtener_reserva import ObtenerReserva
+from src.propiedadesalpes.modulos.propiedades.aplicacion.queries.obtener_todas_propiedades import ObtenerTodasPropiedades
 from src.propiedadesalpes.seedwork.aplicacion.queries import ejecutar_query
 from src.propiedadesalpes.seedwork.aplicacion.comandos import ejecutar_commando
 import json
@@ -41,13 +41,14 @@ def crear():
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
     
-# @bp.route('/<id>', methods=('GET',))
-# def dar_propiedad(id=None):
-#     if id:
-#         sr = ServicioPropiedad()
-#         map_propiedad = MapeadorPropiedadDTOJson()
-        
-#         return map_propiedad.dto_a_externo(sr.obtener_propiedad_por_id(id))
-#     else:
-#         return [{'message': 'GET!'}]
+@bp.route('', methods=('GET',))
+def dar_reserva_usando_query():
+    map_propiedad = MapeadorPropiedadDTOJson()
+    query_resultado = ejecutar_query(ObtenerTodasPropiedades())
+    resultados = []
+    
+    for propiedad in query_resultado.resultado:
+        resultados.append(map_propiedad.dto_a_externo(propiedad))
+    
+    return resultados
     

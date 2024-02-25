@@ -65,4 +65,8 @@ class MapeadorPropiedad(RepMap):
     def entidad_a_externo(self, dto: Propiedad) -> dict:
         dto._id = str(dto._id)
         dto.id_propiedad = str(dto.id_propiedad)
+        dto.fecha_creacion = str(dto.fecha_creacion)
+        dto.fecha_actualizacion = str(dto.fecha_actualizacion)
+        dto.fecha_baja = str(dto.fecha_baja)
+        dto.fecha_publicacion = str(dto.fecha_publicacion)
         return dto.__dict__

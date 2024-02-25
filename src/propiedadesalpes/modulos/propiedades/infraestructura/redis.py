@@ -13,3 +13,8 @@ class RedisRepositorio:
 
     def lpush(self, key, value):
         return self.cx.lpush(key, value)
+    
+    def getAll(self, key):
+        return self.cx.lrange(key, 0, -1)
+    
+    
