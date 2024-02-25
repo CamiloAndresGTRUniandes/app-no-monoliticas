@@ -32,3 +32,11 @@ class RepositorioPropiedadesPostgresSQL(RepositorioPropiedades):
     def obtener_por_id(self, id: UUID) -> Propiedad:
         propiedad_dto = db.session.query(PropiedadDTO).filter_by(id=str(id)).one()
         return self._fabrica_propiedades.crear_objeto(propiedad_dto, MappeadorPropiedad())
+    
+class RepositorioPropiedadesRedis(RepositorioPropiedades):
+    def __init__(self):
+        self._fabrica_propiedades: FabricaPropiedades = FabricaPropiedades()
+
+    def agregar(self, propiedad: Propiedad):
+        ...
+        

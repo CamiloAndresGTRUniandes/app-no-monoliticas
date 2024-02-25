@@ -4,9 +4,11 @@ import uuid
 import time
 import logging
 import traceback
+from src.propiedadesalpes.modulos.propiedades.aplicacion.comandos.crear_cache_propiedad import CrearCachePropiedad
 
 from src.propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada
 from src.propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
+from src.propiedadesalpes.seedwork.aplicacion.comandos import ejecutar_commando
 from src.propiedadesalpes.seedwork.infraestructura import utils
 
 def suscribirse_a_eventos():
@@ -17,8 +19,27 @@ def suscribirse_a_eventos():
 
         while True:
             mensaje = consumidor.receive()
-            print(f'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Evento recibido: {mensaje.data()}')
-
+            ex = mensaje.value()
+            propiedad_dto = ex.data
+            comando = CrearCachePropiedad(
+                id_propiedad= propiedad_dto.id_propiedad,
+                nombre= propiedad_dto.nombre,
+                descripcion= propiedad_dto.descripcion,
+                direccion= propiedad_dto.direccion,
+                precio= propiedad_dto.precio,
+                fecha_creacion= propiedad_dto.fecha_creacion,
+                fecha_actualizacion= propiedad_dto.fecha_actualizacion,
+                fecha_publicacion= propiedad_dto.fecha_publicacion,
+                fecha_baja= propiedad_dto.fecha_baja,
+                estado= propiedad_dto.estado,
+                tipo= propiedad_dto.tipo,
+                habitaciones= propiedad_dto.habitaciones,
+                banos= propiedad_dto.banos,
+                estacionamientos=  propiedad_dto.estacionamientos,
+                superficie= propiedad_dto.superficie,
+                imagen= propiedad_dto.imagen
+                )
+            ejecutar_commando(comando)
             consumidor.acknowledge(mensaje)     
 
         cliente.close()

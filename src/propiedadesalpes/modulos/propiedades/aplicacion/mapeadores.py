@@ -22,7 +22,7 @@ class MapeadorPropiedadDTOJson(AppMap):
     
     def dto_a_externo(self, dto: PropiedadDTO) -> dict:
         return dto.__dict__
-    
+
 
 class MapeadorPropiedad(RepMap):
     _FORMATO_FECHA = "%Y-%m-%dT%H:%M:%SZ"
@@ -61,3 +61,8 @@ class MapeadorPropiedad(RepMap):
         propiedad.imagen=dto.imagen
         propiedad.banos =dto.banos
         return propiedad
+    
+    def entidad_a_externo(self, dto: Propiedad) -> dict:
+        dto._id = str(dto._id)
+        dto.id_propiedad = str(dto.id_propiedad)
+        return dto.__dict__
