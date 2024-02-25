@@ -17,7 +17,7 @@ class VistaPropiedad(Vista):
             fixed = fixed.replace("'", '"')
             propiedad_dto = json.loads(fixed)
 
-            propiedades.append(Propiedad(id=propiedad_dto['id_propiedad'],
+            propiedades.append(PropeidadDTO(id=propiedad_dto['id_propiedad'],
                                          nombre= propiedad_dto['nombre'],
                                          descripcion= propiedad_dto['descripcion'],
                                          direccion= propiedad_dto['direccion'],
