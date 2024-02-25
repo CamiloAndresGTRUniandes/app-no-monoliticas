@@ -20,4 +20,4 @@ class FabricaRepositorio(Fabrica):
         elif obj == RepositorioPropiedades.__class__:
             return RepositorioPropiedadesPostgresSQL()
         else:
-            raise ExcepcionFabrica()
+            raise ExcepcionFabrica(f"Fallo {obj}")

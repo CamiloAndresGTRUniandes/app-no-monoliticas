@@ -2,7 +2,7 @@ from src.propiedadesalpes.seedwork.aplicacion.comandos import ComandoHandler
 from src.propiedadesalpes.modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
 from src.propiedadesalpes.modulos.propiedades.dominio.fabricas import FabricaPropiedades
 
-class CrearReservaBaseHandler(ComandoHandler):
+class CrearPropiedadBaseHandler(ComandoHandler):
     def __init__(self):
         self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
         self._fabrica_propiedades: FabricaPropiedades = FabricaPropiedades()

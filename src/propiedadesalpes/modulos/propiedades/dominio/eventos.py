@@ -18,7 +18,7 @@ class PropiedadCreada(EventoDominio):
     banos: int = None
     estacionamientos: int = None
     superficie: int = None
-    imagen: array = None
+    imagen: str = None
     fecha_creacion: datetime = None
     fecha_actualizacion: datetime = None
     fecha_publicacion: datetime = None

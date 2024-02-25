@@ -33,7 +33,7 @@ class UnidadTrabajoSQLAlchemy(UnidadTrabajo):
 
             super().commit()
         except Exception as e:
-            print(f"ESTE ES EL ERROR DE UOW SSSSSSSSS {e}")
+            print(f"ERROR DE UOW {e}")
 
     def rollback(self, savepoint=None):
         if savepoint:

@@ -17,7 +17,7 @@ def suscribirse_a_eventos():
 
         while True:
             mensaje = consumidor.receive()
-            print(f'Evento recibido: {mensaje.value().data}')
+            print(f'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Evento recibido: {mensaje.data()}')
 
             consumidor.acknowledge(mensaje)     
 
@@ -36,7 +36,7 @@ def suscribirse_a_comandos():
 
         while True:
             mensaje = consumidor.receive()
-            print(f'Comando recibido: {mensaje.value().data}')
+            print(f'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXComando recibido: {mensaje.data()}')
 
             consumidor.acknowledge(mensaje)     
             
