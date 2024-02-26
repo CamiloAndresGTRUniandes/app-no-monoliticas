@@ -1,9 +1,9 @@
 import redis
-
+import os
 
 class RedisRepositorio:
     def __init__(self):
-        self.cx=redis.Redis(host='localhost')
+        self.cx=redis.Redis(host=f"{os.getenv('REDIS_HOST', default='127.0.0.1')}")
 
     def lrange(self, key, start, end):
         return self.cx.lrange(key, start, end)

@@ -1,7 +1,7 @@
 import array
 from datetime import datetime
 import uuid
-from src.propiedadesalpes.seedwork.dominio.entidades import AgregacionRaiz
+from seedwork.dominio.entidades import AgregacionRaiz
 from dataclasses import dataclass, field
 
 from .eventos import PropiedadCreada

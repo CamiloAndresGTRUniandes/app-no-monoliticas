@@ -1,7 +1,7 @@
-from src.propiedadesalpes.seedwork.infraestructura.vistas import Vista
-from src.propiedadesalpes.modulos.propiedades.infraestructura.redis import RedisRepositorio
-from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
-from src.propiedadesalpes.config.db import db
+from seedwork.infraestructura.vistas import Vista
+from modulos.propiedades.infraestructura.redis import RedisRepositorio
+from modulos.propiedades.dominio.entidades import Propiedad
+from config.db import db
 from .dto import Propiedad as PropeidadDTO
 import json
 

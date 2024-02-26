@@ -1,6 +1,6 @@
-from src.propiedadesalpes.seedwork.aplicacion.comandos import ComandoHandler
-from src.propiedadesalpes.modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
-from src.propiedadesalpes.modulos.propiedades.dominio.fabricas import FabricaPropiedades
+from seedwork.aplicacion.comandos import ComandoHandler
+from modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
+from modulos.propiedades.dominio.fabricas import FabricaPropiedades
 
 class CrearPropiedadBaseHandler(ComandoHandler):
     def __init__(self):

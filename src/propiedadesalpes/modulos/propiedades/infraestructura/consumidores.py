@@ -1,15 +1,13 @@
 import pulsar,_pulsar  
 from pulsar.schema import *
-import uuid
-import time
 import logging
 import traceback
-from src.propiedadesalpes.modulos.propiedades.aplicacion.comandos.crear_cache_propiedad import CrearCachePropiedad
+from modulos.propiedades.aplicacion.comandos.crear_cache_propiedad import CrearCachePropiedad
 
-from src.propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada
-from src.propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
-from src.propiedadesalpes.seedwork.aplicacion.comandos import ejecutar_commando
-from src.propiedadesalpes.seedwork.infraestructura import utils
+from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada
+from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
+from seedwork.aplicacion.comandos import ejecutar_commando
+from seedwork.infraestructura import utils
 
 def suscribirse_a_eventos():
     cliente = None
@@ -57,7 +55,7 @@ def suscribirse_a_comandos():
 
         while True:
             mensaje = consumidor.receive()
-            print(f'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXComando recibido: {mensaje.data()}')
+            print(f'Comando recibido: {mensaje.data()}')
 
             consumidor.acknowledge(mensaje)     
             

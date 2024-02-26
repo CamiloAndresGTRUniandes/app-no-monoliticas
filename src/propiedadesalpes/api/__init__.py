@@ -6,10 +6,10 @@ from flask import Flask
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
-    import src.propiedadesalpes.modulos.propiedades.aplicacion
+    import modulos.propiedades.aplicacion
 
 def importar_modelos_alchemy():
-    import src.propiedadesalpes.modulos.propiedades.infraestructura.dto
+    import modulos.propiedades.infraestructura.dto
 
 
 def comenzar_consumidor():
@@ -20,7 +20,7 @@ def comenzar_consumidor():
     """
 
     import threading
-    import src.propiedadesalpes.modulos.propiedades.infraestructura.consumidores as propiedad
+    import modulos.propiedades.infraestructura.consumidores as propiedad
 
 
     # Suscripción a eventos
@@ -34,7 +34,7 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True)
     
     app.config['SQLALCHEMY_DATABASE_URI'] = \
-        f"postgresql://postgres:postgres@127.0.0.1:5432/propiedades"
+        f"postgresql://postgres:postgres@{os.getenv('DATABASE_HOST', default='127.0.0.1')}:5432/propiedades"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     app.secret_key = '9d58f98f-3ae8-4149-a09f-3a8c2012e32c'
@@ -44,10 +44,10 @@ def create_app():
      # Inicializa la DB
 
 
-    from src.propiedadesalpes.config.db import init_db
+    from config.db import init_db
     init_db(app)
 
-    from src.propiedadesalpes.config.db import db
+    from config.db import db
 
     importar_modelos_alchemy()
     registrar_handlers()

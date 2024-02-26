@@ -1,8 +1,8 @@
 from dataclasses import dataclass
-from src.propiedadesalpes.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
-from src.propiedadesalpes.seedwork.aplicacion.queries import ejecutar_query as query
-from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
-from src.propiedadesalpes.modulos.propiedades.aplicacion.dto import PropiedadDTO
+from seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
+from seedwork.aplicacion.queries import ejecutar_query as query
+from modulos.propiedades.dominio.entidades import Propiedad
+from modulos.propiedades.aplicacion.dto import PropiedadDTO
 from .base import ReservaQueryBaseHandler
 
 

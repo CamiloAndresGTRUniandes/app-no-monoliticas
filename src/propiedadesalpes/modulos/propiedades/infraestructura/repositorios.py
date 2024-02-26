@@ -5,10 +5,10 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 
 """
 
-from src.propiedadesalpes.config.db import db
-from src.propiedadesalpes.modulos.propiedades.dominio.repositorios import RepositorioPropiedades
-from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
-from src.propiedadesalpes.modulos.propiedades.dominio.fabricas import FabricaPropiedades
+from config.db import db
+from modulos.propiedades.dominio.repositorios import RepositorioPropiedades
+from modulos.propiedades.dominio.entidades import Propiedad
+from modulos.propiedades.dominio.fabricas import FabricaPropiedades
 from .dto import Propiedad as PropiedadDTO
 from .mapeadores import MappeadorPropiedad
 from uuid import UUID

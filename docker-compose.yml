@@ -2,40 +2,12 @@ version: '3'
 networks:
   pulsar:
     driver: bridge
-  sidecar:
-    driver: bridge
 services:
-  postgres:
-    image: postgres:latest
-    container_name: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_DB: propiedades
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-
-  redis:
-    image: "redis:latest"
-    ports:
-      - "6379:6379"
-
-
-  redis-commander:
-    image: "rediscommander/redis-commander:latest"
-    environment:
-      - REDIS_HOSTS=local:redis:6379
-    ports:
-      - "8081:8081"
-
-
 # Start zookeeper
   zookeeper:
     image: apachepulsar/pulsar:latest
     container_name: zookeeper
     restart: on-failure
-    networks:
-      - pulsar
     volumes:
       - ./data/zookeeper:/pulsar/data/zookeeper
     environment:
@@ -50,14 +22,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 30
+    networks:
+      - pulsar
 
   # Init cluster metadata
   pulsar-init:
     container_name: pulsar-init
     hostname: pulsar-init
     image: apachepulsar/pulsar:latest
-    networks:
-      - pulsar
     command: >
       bin/pulsar initialize-cluster-metadata \
                --cluster cluster-a \
@@ -68,14 +40,14 @@ services:
     depends_on:
       zookeeper:
         condition: service_healthy
+    networks:
+      - pulsar
 
   # Start bookie
   bookie:
     image: apachepulsar/pulsar:latest
     container_name: bookie
     restart: on-failure
-    networks:
-      - pulsar
     environment:
       - clusterName=cluster-a
       - zkServers=zookeeper:2181
@@ -93,6 +65,8 @@ services:
     volumes:
       - ./data/bookkeeper:/pulsar/data/bookkeeper
     command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf && exec bin/pulsar bookie"
+    networks:
+      - pulsar
 
   # Start broker
   broker:
@@ -100,8 +74,6 @@ services:
     container_name: broker
     hostname: broker
     restart: on-failure
-    networks:
-      - pulsar
     environment:
       - metadataStoreUrl=zk:zookeeper:2181
       - zookeeperServers=zookeeper:2181
@@ -120,7 +92,42 @@ services:
     ports:
       - "6650:6650"
       - "8080:8080"
+    networks:
+      - pulsar
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf && exec bin/pulsar broker"
+    
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - pulsar
+    environment:
+      POSTGRES_DB: propiedades
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  redis:
+    container_name: redis_prop
+    hostname: redis_prop
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    networks:
+      - pulsar
+
+  redis-commander:
+    image: "rediscommander/redis-commander:latest"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    networks:
+      - pulsar
+
+
+
 
  
   # Servicios de PropiedadesAlpes
@@ -130,12 +137,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - postgres
-      - redis
     environment:
-      - AEROALPES_ADDRESS=propiedadesalpes
-      - PULSAR_ADDRESS=broker
+      - PROPIEDADESALPES_ADDRESS=propiedadesalpes
+      - DATABASE_HOST=postgres
+      - REDIS_HOST=redis_prop
+      - BROKER_HOST=172.20.0.8
     ports:
       - "5000:5000"
+    networks:
+      - pulsar
+    depends_on:
+      - postgres
+
+
 

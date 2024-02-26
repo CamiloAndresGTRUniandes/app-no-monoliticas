@@ -1,14 +1,14 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from src.propiedadesalpes.seedwork.aplicacion.comandos import Comando
-from src.propiedadesalpes.modulos.propiedades.aplicacion.dto import PropiedadDTO
-from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
-from src.propiedadesalpes.modulos.propiedades.aplicacion.comandos.base import CrearPropiedadBaseHandler
-from src.propiedadesalpes.modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedad
-from src.propiedadesalpes.modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
-from src.propiedadesalpes.seedwork.infraestructura.uow import UnidadTrabajoPuerto
-from src.propiedadesalpes.seedwork.aplicacion.comandos import ejecutar_commando as comando
+from seedwork.aplicacion.comandos import Comando
+from modulos.propiedades.aplicacion.dto import PropiedadDTO
+from modulos.propiedades.dominio.entidades import Propiedad
+from modulos.propiedades.aplicacion.comandos.base import CrearPropiedadBaseHandler
+from modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedad
+from modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
+from seedwork.infraestructura.uow import UnidadTrabajoPuerto
+from seedwork.aplicacion.comandos import ejecutar_commando as comando
 
 @dataclass
 class CrearPropiedad(Comando):

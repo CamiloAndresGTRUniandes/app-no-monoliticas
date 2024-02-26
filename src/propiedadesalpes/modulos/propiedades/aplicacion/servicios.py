@@ -1,9 +1,9 @@
-from src.propiedadesalpes.seedwork.aplicacion.servicios import Servicio
-from src.propiedadesalpes.modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
-from src.propiedadesalpes.modulos.propiedades.dominio.fabricas import FabricaPropiedades
-from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
-from src.propiedadesalpes.modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
-from src.propiedadesalpes.seedwork.infraestructura.uow import UnidadTrabajoPuerto
+from seedwork.aplicacion.servicios import Servicio
+from modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
+from modulos.propiedades.dominio.fabricas import FabricaPropiedades
+from modulos.propiedades.dominio.entidades import Propiedad
+from modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
+from seedwork.infraestructura.uow import UnidadTrabajoPuerto
 
 from .dto import PropiedadDTO
 from .mapeadores import MapeadorPropiedad

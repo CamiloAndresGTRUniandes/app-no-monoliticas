@@ -1,5 +1,5 @@
-from src.propiedadesalpes.config.db import db
-from src.propiedadesalpes.seedwork.infraestructura.uow import UnidadTrabajo, Batch
+from config.db import db
+from seedwork.infraestructura.uow import UnidadTrabajo, Batch
 
 class UnidadTrabajoSQLAlchemy(UnidadTrabajo):
 

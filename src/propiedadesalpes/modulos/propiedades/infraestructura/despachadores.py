@@ -1,9 +1,9 @@
 import pulsar
 from pulsar.schema import *
 
-from src.propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada, PropiedadCreadaPayload
-from src.propiedadesalpes.modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad, ComandoCrearPropiedadPayload
-from src.propiedadesalpes.seedwork.infraestructura import utils
+from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada, PropiedadCreadaPayload
+from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad, ComandoCrearPropiedadPayload
+from seedwork.infraestructura import utils
 
 import datetime
 

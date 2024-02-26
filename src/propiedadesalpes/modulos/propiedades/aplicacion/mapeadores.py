@@ -1,6 +1,6 @@
-from src.propiedadesalpes.seedwork.aplicacion.dto import Mapeador as AppMap
-from src.propiedadesalpes.seedwork.dominio.repositorios import Mapeador as RepMap
-from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
+from seedwork.aplicacion.dto import Mapeador as AppMap
+from seedwork.dominio.repositorios import Mapeador as RepMap
+from modulos.propiedades.dominio.entidades import Propiedad
 from .dto import PropiedadDTO
 
 from datetime import datetime

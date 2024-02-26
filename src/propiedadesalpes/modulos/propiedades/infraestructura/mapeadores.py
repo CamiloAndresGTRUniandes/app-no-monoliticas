@@ -5,8 +5,8 @@ encargados de la transformación entre formatos de dominio y DTOs
 
 """
 
-from src.propiedadesalpes.seedwork.dominio.repositorios import Mapeador
-from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
+from seedwork.dominio.repositorios import Mapeador
+from modulos.propiedades.dominio.entidades import Propiedad
 from .dto import Propiedad as PropiedadDTO
 
 

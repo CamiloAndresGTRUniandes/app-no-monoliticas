@@ -2,13 +2,13 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from src.propiedadesalpes.seedwork.aplicacion.comandos import Comando
-from src.propiedadesalpes.modulos.propiedades.aplicacion.dto import PropiedadDTO
-from src.propiedadesalpes.modulos.propiedades.dominio.entidades import Propiedad
-from src.propiedadesalpes.modulos.propiedades.aplicacion.comandos.base import CrearPropiedadBaseHandler
-from src.propiedadesalpes.modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedad
-from src.propiedadesalpes.seedwork.aplicacion.comandos import ejecutar_commando as comando
-from src.propiedadesalpes.modulos.propiedades.infraestructura.redis import RedisRepositorio
+from seedwork.aplicacion.comandos import Comando
+from modulos.propiedades.aplicacion.dto import PropiedadDTO
+from modulos.propiedades.dominio.entidades import Propiedad
+from modulos.propiedades.aplicacion.comandos.base import CrearPropiedadBaseHandler
+from modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedad
+from seedwork.aplicacion.comandos import ejecutar_commando as comando
+from modulos.propiedades.infraestructura.redis import RedisRepositorio
 
 @dataclass
 class CrearCachePropiedad(Comando):
