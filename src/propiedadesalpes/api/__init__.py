@@ -2,6 +2,8 @@ import os
 from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 from flask import Flask
 
+from modulos.propiedades.infraestructura.despachadores import Despachador
+
 # Identifica el directorio base
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -13,21 +15,19 @@ def importar_modelos_alchemy():
 
 
 def comenzar_consumidor():
-    """
-    Este es un código de ejemplo. Aunque esto sea funcional puede ser un poco peligroso tener 
-    threads corriendo por si solos. Mi sugerencia es en estos casos usar un verdadero manejador
-    de procesos y threads como Celery.
-    """
 
     import threading
     import modulos.propiedades.infraestructura.consumidores as propiedad
 
 
     # Suscripción a eventos
-    threading.Thread(target=propiedad.suscribirse_a_eventos).start()
+    threading.Thread(target=propiedad.suscribirse_a_eventos_rabbit).start()
+    #threading.Thread(target=propiedad.suscribirse_a_eventos).start()
 
     # Suscripción a comandos
-    threading.Thread(target=propiedad.suscribirse_a_comandos).start()
+    #threading.Thread(target=propiedad.suscribirse_a_comandos).start()
+    
+
 
 def create_app():
     # Init la aplicacion de Flask
@@ -74,3 +74,4 @@ def create_app():
         return {"status": "up"}
 
     return app
+
