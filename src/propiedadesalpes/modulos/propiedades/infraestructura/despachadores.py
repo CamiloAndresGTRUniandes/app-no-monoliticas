@@ -65,7 +65,7 @@ class Despachador:
         channel.basic_publish(exchange=topico, routing_key=f'{utils.broker_rabbit_password()}', body=message)
         connection.close()
 
-    def publicar_evento_rabbit(self, evento, topico):
+    def publicar_comando_rabbit(self, evento, topico):
         payload = {
             "id_propiedad" : f'{evento.id_propiedad}',
             "nombre" : f"{evento.nombre}",

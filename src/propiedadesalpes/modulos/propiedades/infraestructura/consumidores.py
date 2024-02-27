@@ -69,7 +69,7 @@ def suscribirse_a_comandos():
             cliente.close()
 
 import pika
-def suscribirse_a_eventos_rabbit():
+def suscribirse_a_comandos_rabbit():
     def callback(ch, method, properties, body):
             propiedad_dto = json.loads(body)
             comando = CrearCachePropiedad(
@@ -90,7 +90,7 @@ def suscribirse_a_eventos_rabbit():
                 superficie= propiedad_dto['superficie'],
                 imagen= propiedad_dto['imagen'])
             ejecutar_commando(comando)
-    topico = 'eventos-propiedad'
+    topico = 'comandos-propiedad'
     connection = conectar_rabbitmq()
     channel = connection.channel()
     channel.exchange_declare(exchange=topico, exchange_type='topic', durable=True)
