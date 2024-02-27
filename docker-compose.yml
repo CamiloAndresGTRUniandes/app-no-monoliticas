@@ -14,6 +14,11 @@ services:
       POSTGRES_DB: propiedades
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
 
   redis:
     container_name: redis_prop
@@ -52,6 +57,7 @@ services:
   propiedadesalpes:
     container_name: propiedadesalpes
     hostname: propiedadesalpes
+    restart: on-failure
     build:
       context: .
       dockerfile: Dockerfile
@@ -69,8 +75,8 @@ services:
     networks:
       - pulsar
     depends_on:
-      - postgres
-      - rabbitmq
+      postgres:
+        condition: service_healthy
 
 # Start zookeeper
   # zookeeper:
