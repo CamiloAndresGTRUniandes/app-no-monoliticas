@@ -30,9 +30,9 @@ services:
       - pulsar
     healthcheck:
       test: ["CMD-SHELL", "redis-cli -h localhost -p 6379 ping"]
-      interval: 10s
-      timeout: 20s
-      retries: 50
+      interval: 2s
+      timeout: 5s
+      retries: 5
 
   redis-commander:
     image: "rediscommander/redis-commander:latest"
@@ -60,6 +60,11 @@ services:
       RABBITMQ_DEFAULT_PASS: LosAndes1234
     networks:
       - pulsar
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 20s
+      retries: 10
  
   # Servicios de PropiedadesAlpes
   propiedadesalpes:
@@ -86,7 +91,7 @@ services:
       postgres:
         condition: service_healthy
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
       redis_prop:
         condition: service_healthy
 
