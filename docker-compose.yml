@@ -141,7 +141,7 @@ services:
       - PROPIEDADESALPES_ADDRESS=propiedadesalpes
       - DATABASE_HOST=postgres
       - REDIS_HOST=redis_prop
-      - BROKER_HOST=172.20.0.8
+      - BROKER_HOST=broker
     ports:
       - "5000:5000"
     networks:
