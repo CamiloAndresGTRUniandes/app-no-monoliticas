@@ -1,11 +1,13 @@
 import pulsar
 from pulsar.schema import *
+import pika
 
 from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada, PropiedadCreadaPayload
 from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad, ComandoCrearPropiedadPayload
 from seedwork.infraestructura import utils
 
 import datetime
+import json
 
 epoch = datetime.datetime.utcfromtimestamp(0)
 
@@ -50,3 +52,37 @@ class Despachador:
         )
         comando_integracion = ComandoCrearPropiedad(data=payload)
         self._publicar_mensaje(comando_integracion, topico, AvroSchema(ComandoCrearPropiedad))
+
+
+
+    def _publicar_mensaje_rabbit(self, mensaje, topico):
+        credentials = pika.PlainCredentials(username=f'{utils.broker_rabbit_user()}', password=f'{utils.broker_rabbit_password()}')
+        connection = pika.BlockingConnection(pika.ConnectionParameters(f'{utils.broker_rabbit_host()}', port=utils.broker_rabbit_port(), credentials= credentials))
+        channel = connection.channel()
+        channel.exchange_declare(exchange=topico, exchange_type='topic', durable=True)
+        message = mensaje
+        
+        channel.basic_publish(exchange=topico, routing_key=f'{utils.broker_rabbit_password()}', body=message)
+        connection.close()
+
+    def publicar_evento_rabbit(self, evento, topico):
+        payload = {
+            "id_propiedad" : f'{evento.id_propiedad}',
+            "nombre" : f"{evento.nombre}",
+            "estado" : f"{evento.estado}",
+            "fecha_creacion" : f"{evento.fecha_creacion}",
+            "fecha_actualizacion" : f"{evento.fecha_actualizacion}",
+            "direccion" : f"{evento.direccion}",
+            "tipo" : f"{evento.tipo}",
+            "precio" : f"{evento.precio}",
+            "imagen" : f"{evento.imagen}",
+            "habitaciones" : f"{evento.habitaciones}",
+            "banos" : f"{evento.banos}",
+            "superficie" : f"{evento.superficie}",
+            "estacionamientos" : f"{evento.estacionamientos}",
+            "fecha_publicacion" : f"{evento.fecha_publicacion}",
+            "fecha_baja" : f"{evento.fecha_baja}",
+            "descripcion" : f"{evento.descripcion}"
+            }
+        mensaje = json.dumps(payload)
+        self._publicar_mensaje_rabbit(mensaje, topico)
