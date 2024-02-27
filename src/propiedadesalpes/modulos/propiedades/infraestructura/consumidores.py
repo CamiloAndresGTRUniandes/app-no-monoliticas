@@ -1,4 +1,5 @@
 import json
+import time
 import pulsar,_pulsar  
 from pulsar.schema import *
 import logging
@@ -89,10 +90,8 @@ def suscribirse_a_eventos_rabbit():
                 superficie= propiedad_dto['superficie'],
                 imagen= propiedad_dto['imagen'])
             ejecutar_commando(comando)
-
     topico = 'eventos-propiedad'
-    credentials = pika.PlainCredentials(username=f'{utils.broker_rabbit_user()}', password=f'{utils.broker_rabbit_password()}')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(f'{utils.broker_rabbit_host()}', port=utils.broker_rabbit_port(), credentials= credentials))
+    connection = conectar_rabbitmq()
     channel = connection.channel()
     channel.exchange_declare(exchange=topico, exchange_type='topic', durable=True)
     result = channel.queue_declare(queue='', exclusive=True)
@@ -101,3 +100,21 @@ def suscribirse_a_eventos_rabbit():
     print(f" [*] Esperando mensajes en el topico {topico}. Para salir, presiona Ctrl+C")
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
     channel.start_consuming()
+
+
+def conectar_rabbitmq(intentos_maximos=5, intervalo_reintentos_segundos=5):
+    intentos = 0
+    while intentos < intentos_maximos:
+        try:
+            credentials = pika.PlainCredentials(username=f'{utils.broker_rabbit_user()}', password=f'{utils.broker_rabbit_password()}')
+            connection = pika.BlockingConnection(pika.ConnectionParameters(f'{utils.broker_rabbit_host()}', port=utils.broker_rabbit_port(), credentials= credentials))
+            logging.warning('SUCCESS: Conexion exitosa a RabbitMQ!')
+            return connection
+        except pika.exceptions.AMQPConnectionError:
+            logging.warning("No se pudo establecer la conexión. Reintentando...")
+            intentos += 1
+            time.sleep(intervalo_reintentos_segundos)
+
+    logging.error('ERROR: Conexión a rabbit no exitosa despues de reintentos')
+    return None
+    
