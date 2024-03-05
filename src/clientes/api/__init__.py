@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from seedwork.infrastructure.utils import database_connection_string
 
 
@@ -27,7 +28,8 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.secret_key = '9d58f98f-3ae8-4149-a09f-3a8c2012e32c'
     app.config['SESSION_TYPE'] = 'filesystem'
-    
+    app.config['JWT_SECRET_KEY'] = 'frase-secreta'
+    jwt = JWTManager(app)
     from config.db import init_db
     init_db(app)
 
