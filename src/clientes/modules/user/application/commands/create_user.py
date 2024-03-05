@@ -27,10 +27,12 @@ class CreateUserHandler(CreateUserBaseHandler):
         user_dto.lastName = command.lastName
         user_dto.userName = command.userName
         user_dto.password = command.password
-        print(f"En create User: {user_dto}")
+    
         user : User = self._users_factory.create_object(user_dto, MapperUser())
-        user.create_property(user)
+        user.create_user(user)
+        print(f"En el create_user: XXXXXXX {user.name.firstName}")
         repository = self.reposiroty_factory.create_object(UserRepository.__class__)
+
         UnitOfWorkPort.register_batch(repository.add, user)
         UnitOfWorkPort.commit()
 

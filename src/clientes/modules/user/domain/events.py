@@ -4,7 +4,7 @@ from seedwork.domain.events import (DomainEvent)
 
 
 @dataclass
-class userCreated(DomainEvent):
+class UserCreated(DomainEvent):
     firstName : str = field(default_factory = str)
     lastName : str = field(default_factory = str)
     userName : str = field(default_factory = str)

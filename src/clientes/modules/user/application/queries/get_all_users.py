@@ -1,5 +1,5 @@
 
-from modules.user.application.queries.base import PropertyQueryBaseHandler
+from modules.user.application.queries.base import UserQueryBaseHandler
 from seedwork.application.queries import Query, QueryResult
 from modules.user.domain.entities import User
 from modules.user.application.dto import UserDTO
@@ -12,7 +12,7 @@ class GetAllUsers(Query):
     ...
 
 
-class GetAllPropertiesHandler(PropertyQueryBaseHandler):
+class GetAllPropertiesHandler(UserQueryBaseHandler):
     def handle(self, query) -> QueryResult:
         users_dto = []
         view = self.view_factory.create_object(User)
@@ -20,7 +20,7 @@ class GetAllPropertiesHandler(PropertyQueryBaseHandler):
 
         for user in users:
             dto = UserDTO()
-            dto.id_user = user.id_user
+            dto.id_user = user.id
             dto.firstName = user.firstName
             dto.lastName = user.lastName
             dto.userName = user.userName

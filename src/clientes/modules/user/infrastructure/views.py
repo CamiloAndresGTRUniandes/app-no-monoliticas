@@ -12,7 +12,7 @@ class UserView(View):
     def get_all(self):
         users = list()
         redis = RedisRepository()
-        propiedadesRedis = redis.lrange('properties', 0, -1)
+        propiedadesRedis = redis.lrange('users', 0, -1)
         for propertyRedis in propiedadesRedis:
             propertyDto = json.loads(propertyRedis)
 

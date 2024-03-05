@@ -17,7 +17,7 @@ def subscribe_to_events():
     try:
         client = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
         consumer = client.subscribe('users-events', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='users-sub-events', schema=AvroSchema(UserCreatedEvent))
-        
+        print('Subscribed to events')
         while True:
             message = consumer.receive()
             ex = message.value()
@@ -25,7 +25,7 @@ def subscribe_to_events():
             print(f'EVENT RECEIVED: {user_dto}')
             command = CreateCacheUser(
                 firstName=user_dto.firstName,
-                lastname=user_dto.lastname,
+                lastname=user_dto.lastName,
                 userName=user_dto.userName,
                 created_at=user_dto.created_at
                 )
@@ -52,7 +52,7 @@ def subscribe_to_commands():
             print(f'COMMAND RECEIVED: {user_dto}')
             command = CreateCacheUser(
                 firstName=user_dto.firstName,
-                lastname=user_dto.lastname,
+                lastname=user_dto.lastName,
                 userName=user_dto.userName,
                 created_at=user_dto.created_at
                 )

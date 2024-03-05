@@ -22,10 +22,11 @@ class MapperUser(RepMap):
         return UserDTO.__class__
 
     def dto_to_entity(self, dto: UserDTO) -> User:
-        user_entity = User()
-        user_entity.name = Name(firstName=dto.firstName, lastName=dto.lastName)
-        user_entity.userName = dto.userName
-        user_entity.password = dto.password
+        user_entity = User(
+        name = Name(firstName=dto.firstName, lastName=dto.lastName),
+        userName = dto.userName,
+        password = dto.password
+        )
         return user_entity
     
     def entity_to_dto(self, entity: User) -> UserDTO:
@@ -39,7 +40,7 @@ class MapperUser(RepMap):
     
     def entity_to_external(self, entity: User) -> dict:
         return {
-            "id_user": entity.id,
+            "id_user": str(entity.id),
             "firstName": entity.name.firstName,
             "lastName": entity.name.lastName,
             "userName": entity.userName,
@@ -47,10 +48,8 @@ class MapperUser(RepMap):
         }
     
     def external_to_entity(self, external: dict) -> User:
-        user_entity = User()
-        user_entity.name= Name(external.get('firstName'), external.get('lastName'))
-        user_entity.userName = external.get('userName')
-        user_entity.password = external.get('password')
-
+        firstName = external.get('firstName')
+        lastName = external.get('lastName')
+        user_entity = User(name= Name(firstName, lastName), userName=external.get('userName'), password= external.get('password'))
         return user_entity
     

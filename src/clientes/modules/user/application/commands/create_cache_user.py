@@ -1,6 +1,8 @@
 
 
 from dataclasses import dataclass
+import logging
+import traceback
 from modules.user.domain.value_objects import Name
 from modules.user.infrastructure.redis import RedisRepository
 from seedwork.application.commands import Command, CommandHandler
@@ -28,20 +30,21 @@ class CreateCacheUser(Command):
 
 class CreateCacheUserHandler(CreateUserBaseHandler):
     def handle(self, command: CreateCacheUser):
-        user_dto = User
-        user_dto.name = Name(command.firstName, command.lastname)
-        user_dto.userName = command.userName
-        user_dto.password = command.password
-        user_dto.created_at = command.created_at
-
+        user_dto = User(
+        name = Name(command.firstName, command.lastname),
+        userName = command.userName,
+        password = command.password,
+        created_at = command.created_at
+        )
         map_user = MapperUser()
         userJson = map_user.entity_to_external(user_dto)
         try:
             redis = RedisRepository()
-            property_ext = json.dumps(userJson, indent = 4)
-            redis.lpush("users", property_ext)
+            user_ext = json.dumps(userJson, indent = 4)
+            redis.lpush("users", user_ext)
         except Exception as e:
-            print(e)
+            logging.error(f"Pasó aqui {e}")
+            traceback.print_exc
         
 
 @command.register(CreateCacheUser)
