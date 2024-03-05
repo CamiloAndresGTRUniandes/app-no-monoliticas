@@ -15,7 +15,7 @@ import datetime
 
 @dataclass
 class CreateUser(Command):
-    firstname: str = field(default_factory=str)
+    firstName: str = field(default_factory=str)
     lastName: str = field(default_factory=str)
     userName: str = field(default_factory=str)
     password: str = field(default_factory=str)
@@ -23,11 +23,11 @@ class CreateUser(Command):
 class CreateUserHandler(CreateUserBaseHandler):
     def handle(self, command: CreateUser):
         user_dto = UserDTO()
-        user_dto.firstName = command.firstname
+        user_dto.firstName = command.firstName
         user_dto.lastName = command.lastName
         user_dto.userName = command.userName
         user_dto.password = command.password
-            
+        print(f"En create User: {user_dto}")
         user : User = self._users_factory.create_object(user_dto, MapperUser())
         user.create_property(user)
         repository = self.reposiroty_factory.create_object(UserRepository.__class__)

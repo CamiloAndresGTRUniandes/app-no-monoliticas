@@ -1,12 +1,12 @@
 
-from modules.property.infrastructure.factories import ViewFactory
-from modules.property.domain.factories import PropertiesFactory
+from modules.user.infrastructure.factories import ViewFactory
+from modules.user.domain.factories import UsersFactory
 from seedwork.application.queries import QueryHandler
 
 class PropertyQueryBaseHandler(QueryHandler):
     def __init__(self):
         self._view_factory: ViewFactory = ViewFactory()
-        self._properties_factory: PropertiesFactory = PropertiesFactory()
+        self._properties_factory: UsersFactory = UsersFactory()
 
     @property
     def view_factory(self):

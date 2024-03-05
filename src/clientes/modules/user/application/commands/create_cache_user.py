@@ -1,7 +1,7 @@
 
 
 from dataclasses import dataclass
-from clientes.modules.user.domain.value_objects import Name
+from modules.user.domain.value_objects import Name
 from modules.user.infrastructure.redis import RedisRepository
 from seedwork.application.commands import Command, CommandHandler
 from seedwork.domain.value_objects import Money

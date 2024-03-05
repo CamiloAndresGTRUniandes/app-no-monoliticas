@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from seedwork.domain.value_objects import GenericUUID, ValueObject
+from seedwork.domain.value_objects import ValueObject
 
 
 @dataclass(frozen=True)

@@ -23,7 +23,7 @@ class MapperUser(RepMap):
 
     def dto_to_entity(self, dto: UserDTO) -> User:
         user_entity = User()
-        user_entity.name = Name(dto.firstName, dto.lastName)
+        user_entity.name = Name(firstName=dto.firstName, lastName=dto.lastName)
         user_entity.userName = dto.userName
         user_entity.password = dto.password
         return user_entity

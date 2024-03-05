@@ -10,7 +10,7 @@ class UserMapper(Mapper):
     def entity_to_dto(self, entity: User) -> UserDTO:
         user_dto = UserDTO()
         user_dto.id = entity.id
-        user_dto.fisrtName = entity.firstName
+        user_dto.firstName = entity.firstName
         user_dto.lastName = entity.lastName
         user_dto.userName = entity.userName
         user_dto.password = entity.password
@@ -19,7 +19,7 @@ class UserMapper(Mapper):
     
     def dto_to_entity(self, dto: UserDTO) -> User:
         user_entity = User()
-        user_entity.name = Name(dto.fisrtName, dto.lastName)
+        user_entity.name = Name(dto.firstName, dto.lastName)
         user_entity.userName = dto.userName
         user_entity.password = dto.password
         user_entity.created_at = dto.created_at

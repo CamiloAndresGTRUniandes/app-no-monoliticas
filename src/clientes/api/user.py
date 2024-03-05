@@ -11,7 +11,7 @@ from flask import request, Response
 from seedwork.domain.exceptions import DomainException
 
 
-bp = api.create_blueprint('property', '/property')
+bp = api.create_blueprint('user', '/user')
 
 @bp.route('', methods=['POST',])
 def create_user():
@@ -21,9 +21,9 @@ def create_user():
         user_dto = map_property.external_to_dto(dict_property)
 
         command = CreateUser(
-            firstname=user_dto.firstname,
-            lastname=user_dto.lastname,
-            username=user_dto.username,
+            firstName=user_dto.firstName,
+            lastName=user_dto.lastName,
+            userName=user_dto.userName,
             password=user_dto.password
         )
         execute_command(command)
