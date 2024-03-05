@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from seedwork.aplicacion.dto import DTO
+from seedwork_prop.aplicacion.dto import DTO
 
 @dataclass(frozen=False)
 class PropiedadDTO(DTO):

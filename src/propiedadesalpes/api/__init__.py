@@ -35,7 +35,7 @@ def create_app():
     app = Flask(__name__, instance_relative_config=True)
     
     app.config['SQLALCHEMY_DATABASE_URI'] = \
-        f"postgresql://postgres:postgres@{os.getenv('DATABASE_HOST', default='127.0.0.1')}:5432/propiedades"
+        f"postgresql://postgres:LosAndes1234@{os.getenv('DATABASE_HOST', default='127.0.0.1')}:5432/properties"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     app.secret_key = '9d58f98f-3ae8-4149-a09f-3a8c2012e32c'
@@ -45,10 +45,10 @@ def create_app():
      # Inicializa la DB
 
 
-    from config.db import init_db
+    from config_prop.db import init_db
     init_db(app)
 
-    from config.db import db
+    from config_prop.db import db
 
     importar_modelos_alchemy()
     registrar_handlers()

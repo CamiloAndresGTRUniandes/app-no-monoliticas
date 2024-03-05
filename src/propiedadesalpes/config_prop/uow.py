@@ -1,5 +1,5 @@
-from config.db import db
-from seedwork.infraestructura.uow import UnidadTrabajo, Batch
+from config_prop.db import db
+from seedwork_prop.infraestructura.uow import UnidadTrabajo, Batch
 
 class UnidadTrabajoSQLAlchemy(UnidadTrabajo):
 

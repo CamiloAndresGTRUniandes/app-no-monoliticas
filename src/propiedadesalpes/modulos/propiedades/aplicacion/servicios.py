@@ -1,9 +1,9 @@
-from seedwork.aplicacion.servicios import Servicio
+from seedwork_prop.aplicacion.servicios import Servicio
 from modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
 from modulos.propiedades.dominio.fabricas import FabricaPropiedades
 from modulos.propiedades.dominio.entidades import Propiedad
 from modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
-from seedwork.infraestructura.uow import UnidadTrabajoPuerto
+from seedwork_prop.infraestructura.uow import UnidadTrabajoPuerto
 
 from .dto import PropiedadDTO
 from .mapeadores import MapeadorPropiedad

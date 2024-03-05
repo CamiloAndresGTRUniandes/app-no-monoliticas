@@ -1,5 +1,5 @@
-from seedwork.aplicacion.dto import Mapeador as AppMap
-from seedwork.dominio.repositorios import Mapeador as RepMap
+from seedwork_prop.aplicacion.dto import Mapeador as AppMap
+from seedwork_prop.dominio.repositorios import Mapeador as RepMap
 from modulos.propiedades.dominio.entidades import Propiedad
 from .dto import PropiedadDTO
 

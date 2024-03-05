@@ -1,7 +1,7 @@
 
 
 from modulos.propiedades.dominio.eventos import PropiedadCreada
-from seedwork.aplicacion.handlers import Handler
+from seedwork_prop.aplicacion.handlers import Handler
 from modulos.propiedades.infraestructura.despachadores import Despachador
 
 class HandlerPropiedadDominio(Handler):

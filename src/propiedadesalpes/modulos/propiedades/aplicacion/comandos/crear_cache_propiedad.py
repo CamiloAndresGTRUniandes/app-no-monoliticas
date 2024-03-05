@@ -2,12 +2,12 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from seedwork.aplicacion.comandos import Comando
+from seedwork_prop.aplicacion.comandos import Comando
 from modulos.propiedades.aplicacion.dto import PropiedadDTO
 from modulos.propiedades.dominio.entidades import Propiedad
 from modulos.propiedades.aplicacion.comandos.base import CrearPropiedadBaseHandler
 from modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedad
-from seedwork.aplicacion.comandos import ejecutar_commando as comando
+from seedwork_prop.aplicacion.comandos import ejecutar_commando as comando
 from modulos.propiedades.infraestructura.redis import RedisRepositorio
 
 @dataclass

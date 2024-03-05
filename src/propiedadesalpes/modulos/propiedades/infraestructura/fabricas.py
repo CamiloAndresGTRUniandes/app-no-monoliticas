@@ -6,10 +6,10 @@ objetos complejos en la capa de infraestructura del dominio de vuelos
 """
 
 from dataclasses import dataclass, field
-from seedwork.dominio.fabricas import Fabrica
-from seedwork.dominio.repositorios import Repositorio
+from seedwork_prop.dominio.fabricas import Fabrica
+from seedwork_prop.dominio.repositorios import Repositorio
 from modulos.propiedades.dominio.repositorios import RepositorioPropiedades
-from seedwork.infraestructura.vistas import Vista
+from seedwork_prop.infraestructura.vistas import Vista
 from modulos.propiedades.dominio.entidades import Propiedad
 from modulos.propiedades.infraestructura.vistas import VistaPropiedad
 
