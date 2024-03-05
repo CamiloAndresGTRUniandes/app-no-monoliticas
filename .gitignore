@@ -116,6 +116,14 @@ venv.bak/
 Include/
 Lib/
 Scripts/
+lib/
+lib64/
+lib64
+include/
+init.sql
+data/
+bin/
+.idea/
 
 # Spyder project settings
 .spyderproject
@@ -123,7 +131,7 @@ Scripts/
 
 # Rope project settings
 .ropeproject
-
+*.nar
 # mkdocs documentation
 /site
 
