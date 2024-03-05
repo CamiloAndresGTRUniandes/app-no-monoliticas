@@ -48,9 +48,9 @@ tasks:
   - name: Start client services
     init: gp sync-await update_permissions
     command: flask --app src/clientes/api run --debugger --no-reload -p 3000
-  - name: Start properties service
-    init: gp sync-await update_permissions
-    command: flask --app src/propiedadesalpes/api run --debugger --no-reload -p 5000
+  # - name: Start properties service
+  #   init: gp sync-await update_permissions
+  #   command: flask --app src/propiedadesalpes/api run --debugger --no-reload -p 5000
   
 ports:
   - port: 2181
