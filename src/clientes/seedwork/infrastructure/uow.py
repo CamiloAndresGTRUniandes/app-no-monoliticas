@@ -65,6 +65,7 @@ class UnitOfWork(ABC):
 
     def _publish_domain_events(self, batch):
         for event in self._get_events(batches=[batch]):
+            print(f"publish en uow XXXX: {type(event).__name__}")
             dispatcher.send(signal=f'{type(event).__name__}Domain', event=event)
 
     def _publish_events_post_commit(self):

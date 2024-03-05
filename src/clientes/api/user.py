@@ -1,3 +1,4 @@
+import hashlib
 import json
 from modules.user.application.queries.get_all_users import GetAllUsers
 import seedwork.presentation.api as api
@@ -26,13 +27,14 @@ def create_user():
             userName=user_dto.userName,
             password=user_dto.password
         )
+        command.password = hashlib.md5(command.password.encode('utf-8')).hexdigest()
         execute_command(command)
         return Response('{}', status=202, mimetype='application/json')
     except DomainException as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
     
 @bp.route('', methods=('GET',))
-def get_all_properties():
+def get_all_users():
     map_user = MapperUserDTOJson()
     query_result = execute_query(GetAllUsers())
     results = []

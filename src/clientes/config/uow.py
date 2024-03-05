@@ -1,3 +1,4 @@
+import traceback
 from config.db import db
 from seedwork.infrastructure.uow import UnitOfWork, Batch
 import logging
@@ -35,6 +36,7 @@ class UnitOfWorkSQLAlchemy(UnitOfWork):
             super().commit()
         except Exception as e:
             logging.error(f"UOW ERROR: {e}")
+            traceback.print_exc()
     def rollback(self, savepoint=None):
         if savepoint:
             savepoint.rollback()

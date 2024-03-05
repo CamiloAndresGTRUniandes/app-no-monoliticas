@@ -11,6 +11,5 @@ class UsersFactory(Factory):
         if isinstance(obj, Entity):
             return mapper.entity_to_dto(obj)
         else:
-            print(f"XXSSSSSSXXXXXX{obj}")
             user: User = mapper.dto_to_entity(obj)
             return user
