@@ -6,9 +6,9 @@ objetos complejos del dominio de vuelos
 """
 
 from .entidades import Propiedad
-from seedwork_prop.dominio.repositorios import Mapeador
-from seedwork_prop.dominio.fabricas import Fabrica
-from seedwork_prop.dominio.entidades import Entidad
+from seedwork.dominio.repositorios import Mapeador
+from seedwork.dominio.fabricas import Fabrica
+from seedwork.dominio.entidades import Entidad
 from dataclasses import dataclass
 
         

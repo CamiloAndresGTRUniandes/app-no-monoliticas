@@ -1,5 +1,5 @@
 from pulsar.schema import *
-from seedwork_prop.infraestructura.schema.v1.eventos import EventoIntegracion
+from seedwork.infraestructura.schema.v1.eventos import EventoIntegracion
 
 class PropiedadCreadaPayload(Record):
     id_propiedad = String()

@@ -1,4 +1,4 @@
-from seedwork_prop.aplicacion.comandos import ComandoHandler
+from seedwork.aplicacion.comandos import ComandoHandler
 from modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
 from modulos.propiedades.dominio.fabricas import FabricaPropiedades
 

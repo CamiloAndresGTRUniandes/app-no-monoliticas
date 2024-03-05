@@ -1,4 +1,4 @@
-from seedwork_prop.aplicacion.queries import QueryHandler
+from seedwork.aplicacion.queries import QueryHandler
 from modulos.propiedades.infraestructura.fabricas import FabricaVista
 from modulos.propiedades.dominio.fabricas import FabricaPropiedades
 

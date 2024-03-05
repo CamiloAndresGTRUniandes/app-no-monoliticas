@@ -1,10 +1,10 @@
-import seedwork_prop.presentacion.api as api
-from seedwork_prop.dominio.excepciones import ExcepcionDominio
+import seedwork.presentacion.api as api
+from seedwork.dominio.excepciones import ExcepcionDominio
 from modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedadDTOJson
 from modulos.propiedades.aplicacion.comandos.crear_propiedad import CrearPropiedad
 from modulos.propiedades.aplicacion.queries.obtener_todas_propiedades import ObtenerTodasPropiedades
-from seedwork_prop.aplicacion.queries import ejecutar_query
-from seedwork_prop.aplicacion.comandos import ejecutar_commando
+from seedwork.aplicacion.queries import ejecutar_query
+from seedwork.aplicacion.comandos import ejecutar_commando
 import json
 from flask import Response
 from flask import redirect, render_template, request, session, url_for

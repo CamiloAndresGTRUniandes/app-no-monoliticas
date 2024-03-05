@@ -1,7 +1,7 @@
-from seedwork_prop.infraestructura.vistas import Vista
+from seedwork.infraestructura.vistas import Vista
 from modulos.propiedades.infraestructura.redis import RedisRepositorio
 from modulos.propiedades.dominio.entidades import Propiedad
-from config_prop.db import db
+from config.db import db
 from .dto import Propiedad as PropeidadDTO
 import json
 

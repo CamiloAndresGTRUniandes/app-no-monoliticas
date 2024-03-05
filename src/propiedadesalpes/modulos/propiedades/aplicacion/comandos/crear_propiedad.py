@@ -1,14 +1,14 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from seedwork_prop.aplicacion.comandos import Comando
+from seedwork.aplicacion.comandos import Comando
 from modulos.propiedades.aplicacion.dto import PropiedadDTO
 from modulos.propiedades.dominio.entidades import Propiedad
 from modulos.propiedades.aplicacion.comandos.base import CrearPropiedadBaseHandler
 from modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedad
 from modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
-from seedwork_prop.infraestructura.uow import UnidadTrabajoPuerto
-from seedwork_prop.aplicacion.comandos import ejecutar_commando as comando
+from seedwork.infraestructura.uow import UnidadTrabajoPuerto
+from seedwork.aplicacion.comandos import ejecutar_commando as comando
 
 @dataclass
 class CrearPropiedad(Comando):

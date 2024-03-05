@@ -5,7 +5,7 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 
 """
 
-from config_prop.db import db
+from config.db import db
 from modulos.propiedades.dominio.repositorios import RepositorioPropiedades
 from modulos.propiedades.dominio.entidades import Propiedad
 from modulos.propiedades.dominio.fabricas import FabricaPropiedades

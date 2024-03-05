@@ -5,7 +5,7 @@ encargados de la transformación entre formatos de dominio y DTOs
 
 """
 
-from seedwork_prop.dominio.repositorios import Mapeador
+from seedwork.dominio.repositorios import Mapeador
 from modulos.propiedades.dominio.entidades import Propiedad
 from .dto import Propiedad as PropiedadDTO
 

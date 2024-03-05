@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from seedwork_prop.aplicacion.queries import Query, QueryHandler, QueryResultado
-from seedwork_prop.aplicacion.queries import ejecutar_query as query
+from seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
+from seedwork.aplicacion.queries import ejecutar_query as query
 from modulos.propiedades.dominio.entidades import Propiedad
 from modulos.propiedades.aplicacion.dto import PropiedadDTO
 from .base import ReservaQueryBaseHandler

@@ -8,8 +8,8 @@ from modulos.propiedades.aplicacion.comandos.crear_cache_propiedad import CrearC
 
 from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada
 from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
-from seedwork_prop.aplicacion.comandos import ejecutar_commando
-from seedwork_prop.infraestructura import utils
+from seedwork.aplicacion.comandos import ejecutar_commando
+from seedwork.infraestructura import utils
 
 def suscribirse_a_eventos():
     cliente = None

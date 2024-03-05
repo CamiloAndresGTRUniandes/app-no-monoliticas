@@ -4,7 +4,7 @@ import pika
 
 from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada, PropiedadCreadaPayload
 from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad, ComandoCrearPropiedadPayload
-from seedwork_prop.infraestructura import utils
+from seedwork.infraestructura import utils
 
 import datetime
 import json
