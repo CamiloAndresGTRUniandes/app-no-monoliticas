@@ -1,5 +1,6 @@
 import hashlib
 import json
+from modules.user.application.queries.login import LoginUser
 from modules.user.application.queries.get_all_users import GetAllUsers
 import seedwork.presentation.api as api
 from modules.user.application.mappers import MapperUserDTOJson
@@ -43,3 +44,19 @@ def get_all_users():
         results.append(map_user.dto_to_external(user))
     
     return results
+
+@bp.route('/login', methods=('POST',))
+def login():
+    try: 
+        userName = request.json['userName']
+        password = hashlib.md5(request.json['password'].encode('utf-8')).hexdigest()
+
+        query_result = execute_query(LoginUser(userName=userName, password=password))
+        if (query_result == 1):
+            return Response('{}', status=400, mimetype='application/json')
+        else:
+            return {"token": query_result.result}
+
+
+    except Exception as e:
+        print(e)

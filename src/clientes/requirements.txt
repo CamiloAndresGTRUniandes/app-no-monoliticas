@@ -27,3 +27,4 @@ psycopg2
 redis
 python-dotenv
 pika
+flask_jwt_extended
