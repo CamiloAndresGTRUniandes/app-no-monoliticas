@@ -20,6 +20,6 @@ class SaleDomainHandler(Handler):
     def property_sold_handler(event):
         try:
             dispatcher = Dispatcher()
-            dispatcher.publish_event(event, 'sales-events', AvroSchema(PropertySoldEvent))
+            dispatcher.publish_event(event, 'sales-property', AvroSchema(PropertySoldEvent))
         except Exception as e:
             logging.error(f"Publish error: {e}")

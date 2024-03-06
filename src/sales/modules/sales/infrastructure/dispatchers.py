@@ -3,7 +3,7 @@ from pulsar.schema import *
 
 import datetime
 import json
-from sales.modules.sales.domain.events import PropertySold
+from modules.sales.domain.events import PropertySold
 
 from seedwork.infrastructure import utils
 from modules.sales.infrastructure.schema.v1.events import PropertySoldEvent, ProperySoldPayload, SaleCreatedEvent, SaleCreatedPayload
@@ -28,7 +28,7 @@ class Dispatcher:
     def publish_event(self, event, topic, schema):
         if (event.__class__ is PropertySold):
             payload = ProperySoldPayload(
-                id = event.propery_id,
+                id = event.property_id,
                 sold = 1
             )
             integration_event = PropertySoldEvent(data= payload)
