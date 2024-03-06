@@ -10,4 +10,4 @@ class PropertyDTO(DTO):
     name: str = field(default_factory=str)
     price: str = field(default_factory=str)
     currency: str = field(default_factory=str)
-    seller : str = field(default_factory=str)
+    property_id : str = field(default_factory=str)

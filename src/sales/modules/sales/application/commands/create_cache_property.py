@@ -19,18 +19,18 @@ from seedwork.infrastructure.uow_sales import UnitOfWorkPortSales
 import datetime
 
 @dataclass
-class CreateCacheProperty(Command):
+class CreateCacheSale(Command):
     name: str = field(default_factory=str)
     price: float = field(default_factory=float)
     currency: str = field(default_factory=str)
-    seller : str = field(default_factory=str)
+    property_id : str = field(default_factory=str)
 
-class CreateCachePropertyHandler(CreatePropertyBaseHandler):
-    def handle(self, command: CreateCacheProperty):
+class CreateCachealeHandler(CreatePropertyBaseHandler):
+    def handle(self, command: CreateCacheSale):
         property_dto = Sales
         property_dto.name = command.name
         property_dto.price = Money(command.price, command.currency)
-        property_dto.seller = command.seller
+        property_dto.property_id = command.property_id
 
         map_property = MapperProperty()
         propertyJson = map_property.entity_to_external(property_dto)
@@ -42,7 +42,7 @@ class CreateCachePropertyHandler(CreatePropertyBaseHandler):
             print(e)
         
 
-@command.register(CreateCacheProperty)
-def execute_command_create_property(command: CreateCacheProperty):
-    handler = CreateCachePropertyHandler()
+@command.register(CreateCacheSale)
+def execute_command_create_property(command: CreateCacheSale):
+    handler = CreateCachealeHandler()
     handler.handle(command)

@@ -23,3 +23,11 @@ class PropiedadCreadaPayload(Record):
 
 class EventoPropiedadCreada(EventoIntegracion):
     data = PropiedadCreadaPayload()
+
+class ProperySoldPayload(Record):
+
+    property_id = String()
+    sold = String
+
+class PropertySoldEvent(EventoIntegracion):
+    data = ProperySoldPayload()

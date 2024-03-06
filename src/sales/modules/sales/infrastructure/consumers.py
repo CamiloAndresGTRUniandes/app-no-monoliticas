@@ -5,10 +5,10 @@ from pulsar.schema import *
 import logging
 import traceback
 
-from modules.sales.application.commands.create_cache_property import CreateCacheProperty
+from modules.sales.application.commands.create_cache_property import CreateCacheSale
 from modules.sales.infrastructure.schema.v1.commands import CreatePropertyCommand
 from seedwork.application.commands import execute_command
-from modules.sales.infrastructure.schema.v1.events import PropertyCreatedEvent
+from modules.sales.infrastructure.schema.v1.events import SaleCreatedEvent
 
 from seedwork.infrastructure import utils
 
@@ -16,18 +16,18 @@ def subscribe_to_events():
     client = None
     try:
         client = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumer = client.subscribe('sales-events', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='sales-sub-events', schema=AvroSchema(PropertyCreatedEvent))
+        consumer = client.subscribe('sales-events', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='sales-sub-events', schema=AvroSchema(SaleCreatedEvent))
         
         while True:
             message = consumer.receive()
             ex = message.value()
             property_dto = ex.data
             print(f'EVENT RECEIVED: {property_dto}')
-            command = CreateCacheProperty(
+            command = CreateCacheSale(
                 name=property_dto.name,
                 price=property_dto.price,
                 currency=property_dto.currency,
-                seller=property_dto.seller)
+                property_id=property_dto.property_id)
             execute_command(command)
             consumer.acknowledge(message)     
 
@@ -48,11 +48,11 @@ def subscribe_to_commands():
             message = consumer.receive()
             ex = message.value()
             property_dto = ex.data
-            command = CreateCacheProperty(
+            command = CreateCacheSale(
                 name=property_dto.name,
                 price=property_dto.price,
                 currency=property_dto.currency,
-                seller=property_dto.seller
+                property_id=property_dto.property_id
                 )
             execute_command(command)
             consumer.acknowledge(message)     

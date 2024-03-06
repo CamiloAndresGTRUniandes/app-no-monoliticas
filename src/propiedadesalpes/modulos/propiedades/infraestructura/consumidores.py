@@ -7,7 +7,7 @@ import logging
 import traceback
 from modulos.propiedades.aplicacion.comandos.crear_cache_propiedad import CrearCachePropiedad
 
-from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada
+from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada, PropertySoldEvent
 from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
 from seedwork.aplicacion.comandos import ejecutar_commando
 from seedwork.infraestructura import utils
@@ -55,12 +55,13 @@ def suscribirse_a_eventos_ventas():
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('sales-property', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='propiedadesalpes-sub-eventos', schema=AvroSchema(EventoPropiedadCreada))
+        consumidor = cliente.subscribe('sales-property', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='sales-sub-eventos', schema=AvroSchema(PropertySoldEvent))
 
         while True:
             mensaje = consumidor.receive()
             ex = mensaje.value()
             message = ex.data
+            print(f"PopertySold Recieved XXX: {message}")
             comando = ActualizarPropiedadVendida(
                 id = message.id,
                 vendido = message.vendido

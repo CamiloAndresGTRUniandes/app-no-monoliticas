@@ -13,14 +13,14 @@ class PropertyMapper(Mapper):
         property_dto.price = entity.price.amount,
         property_dto.currency = entity.price.currency,
         property_dto.created_at = entity.created_at,
-        property_dto.seller = entity.seller
+        property_dto.property_id = entity.property_id
         return property_dto
     
     def dto_to_entity(self, dto: PropertyDTO) -> Sales:
         property_entity = Sales()
         property_entity.name = dto.name,
         property_entity.price = Money(dto.price, dto.currency)
-        property_entity.seller = dto.seller
+        property_entity.property_id = dto.property_id
         return property_entity
     
     def get_type(self) -> type:

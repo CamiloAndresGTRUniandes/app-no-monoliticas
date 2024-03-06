@@ -24,7 +24,7 @@ def create_property():
             name = property_dto.name,
             price = property_dto.price,
             currency = property_dto.currency,
-            seller = property_dto.seller
+            property_id = property_dto.property_id
         )
         execute_command(command)
         return Response('{}', status=202, mimetype='application/json')

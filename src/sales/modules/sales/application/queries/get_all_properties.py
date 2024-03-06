@@ -25,7 +25,7 @@ class GetAllPropertiesHandler(PropertyQueryBaseHandler):
             dto.price = sales.price
             dto.currency = sales.currency
             dto.created_at = sales.created_at
-            dto.seller = sales.seller
+            dto.property_id = sales.property_id
             properties_dto.append(dto)
         return QueryResult(properties_dto)
     

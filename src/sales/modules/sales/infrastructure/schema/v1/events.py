@@ -3,13 +3,22 @@ from pulsar.schema import *
 
 from seedwork.infrastructure.schema.v1.events import IntegrationEvent
 
-class PropertyCreatedPayload(Record):
+class SaleCreatedPayload(Record):
 
-    seller = String()
+    property_id = String()
     name = String()
     price = String()
     currency = String()
     created_at = String()
 
-class PropertyCreatedEvent(IntegrationEvent):
-    data = PropertyCreatedPayload()
+class SaleCreatedEvent(IntegrationEvent):
+    data = SaleCreatedPayload()
+
+
+class ProperySoldPayload(Record):
+
+    property_id = String()
+    sold = String
+
+class PropertySoldEvent(IntegrationEvent):
+    data = ProperySoldPayload()

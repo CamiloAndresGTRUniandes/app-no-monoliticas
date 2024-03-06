@@ -1,4 +1,5 @@
 from pydispatch import dispatcher
-from .handlers import PropertyDomainHandler
+from .handlers import SaleDomainHandler
 
-dispatcher.connect(PropertyDomainHandler.property_created_handler, signal='PropertyCreatedDomain')
+dispatcher.connect(SaleDomainHandler.sale_created_handler, signal='SaleCreatedDomain')
+dispatcher.connect(SaleDomainHandler.property_sold_handler, signal='PropertySoldDomain')

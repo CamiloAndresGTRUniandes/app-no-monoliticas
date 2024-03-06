@@ -10,6 +10,6 @@ class Sales(db.Model):
     name = db.Column(db.String, nullable=False)
     price = db.Column(db.Float, nullable=False)
     currency = db.Column(db.String, nullable=False)
-    seller = db.Column(db.String, nullable=False)
+    property_id = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     

@@ -18,7 +18,7 @@ class CreateProperty(Command):
     name: str = field(default_factory=str)
     price: float = field(default_factory=float)
     currency: str = field(default_factory=str)
-    seller : str = field(default_factory=str)
+    property_id : str = field(default_factory=str)
 
 class CreatePropertyHandler(CreatePropertyBaseHandler):
     def handle(self, command: CreateProperty):
@@ -26,10 +26,10 @@ class CreatePropertyHandler(CreatePropertyBaseHandler):
         property_dto.name = command.name,
         property_dto.price = command.price,
         property_dto.currency = command.currency
-        property_dto.seller = command.seller
+        property_dto.property_id = command.property_id
             
         sales : Sales = self.properties_factory.create_object(property_dto, MapperProperty())
-        sales.create_property(sales)
+        sales.create_sale(sales)
         repository = self.reposiroty_factory.create_object(PropertyRepository.__class__)
         UnitOfWorkPortSales.register_batch(repository.add, sales)
         UnitOfWorkPortSales.commit()

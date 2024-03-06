@@ -20,7 +20,7 @@ class PropertyView(View):
                 name = propertyDto['name'],
                 price = propertyDto['price'],
                 currency = propertyDto['currency'],
-                seller = propertyDto['seller'],
+                property_id = propertyDto['property_id'],
                 created_at = propertyDto['created_at']
                 ))
 
