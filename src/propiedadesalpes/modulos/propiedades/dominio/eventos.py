@@ -23,3 +23,4 @@ class PropiedadCreada(EventoDominio):
     fecha_actualizacion: datetime = None
     fecha_publicacion: datetime = None
     fecha_baja: datetime = None
+    vendido: int = None

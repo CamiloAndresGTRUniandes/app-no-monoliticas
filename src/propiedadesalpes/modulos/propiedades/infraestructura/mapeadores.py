@@ -29,6 +29,7 @@ class MappeadorPropiedad(Mapeador):
         propiedad_dto.precio = entidad.precio
         propiedad_dto.superficie = entidad.superficie
         propiedad_dto.direccion = entidad.direccion
+        propiedad_dto.vendido = entidad.vendido
         
         return propiedad_dto 
     
@@ -46,6 +47,7 @@ class MappeadorPropiedad(Mapeador):
         propiedad.direccion=dto.direccion
         propiedad.imagen=dto.imagen
         propiedad.banos=dto.banos
+        propiedad.vendido = dto.vendido
 
         return propiedad
     

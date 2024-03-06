@@ -19,4 +19,5 @@ class PropiedadDTO(DTO):
     banos: int = field(default_factory=int)
     estacionamientos: int = field(default_factory=int)
     superficie: int = field(default_factory=int)
+    vendido :int = field(default_factory=int)
 

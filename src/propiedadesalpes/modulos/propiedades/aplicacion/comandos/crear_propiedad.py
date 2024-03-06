@@ -27,6 +27,7 @@ class CrearPropiedad(Comando):
     estacionamientos: int = field(default_factory=int)
     superficie: int = field(default_factory=int)
     imagen: str = field(default_factory=str)
+    vendido : int = field(default_factory=int)
 
 class CrearPropiedadHandler(CrearPropiedadBaseHandler):
     def handle(self, comando: CrearPropiedad):
@@ -45,7 +46,8 @@ class CrearPropiedadHandler(CrearPropiedadBaseHandler):
             banos=comando.banos,
             estacionamientos=comando.estacionamientos,
             superficie=comando.superficie,
-            imagen=comando.imagen)
+            imagen=comando.imagen,
+            vendido= comando.vendido)
         
         propiedad : Propiedad = self._fabrica_propiedades.crear_objeto(propiedad_dto, MapeadorPropiedad())
         propiedad.crear_propiedad(propiedad)

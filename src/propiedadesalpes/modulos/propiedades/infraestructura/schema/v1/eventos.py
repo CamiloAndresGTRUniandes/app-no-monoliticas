@@ -18,6 +18,7 @@ class PropiedadCreadaPayload(Record):
     fecha_publicacion = String()
     fecha_baja = String()
     descripcion = String()
+    vendido = String()
 
 
 class EventoPropiedadCreada(EventoIntegracion):

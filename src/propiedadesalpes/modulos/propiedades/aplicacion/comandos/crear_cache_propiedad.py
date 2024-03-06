@@ -28,6 +28,7 @@ class CrearCachePropiedad(Comando):
     estacionamientos: int = field(default_factory=int)
     superficie: int = field(default_factory=int)
     imagen: str = field(default_factory=str)
+    vendido: bool = field(default_factory=False)
 
 class CrearCachePropiedadHandler(CrearPropiedadBaseHandler):
     def handle(self, comando: CrearCachePropiedad):
@@ -47,7 +48,8 @@ class CrearCachePropiedadHandler(CrearPropiedadBaseHandler):
             banos=comando.banos,
             estacionamientos=comando.estacionamientos,
             superficie=comando.superficie,
-            imagen=comando.imagen)
+            imagen=comando.imagen,
+            vendido = comando.vendido)
         
         # propiedad : Propiedad = self._fabrica_propiedades.crear_objeto(propiedad_dto, MapeadorPropiedad())
         # propiedad.crear_propiedad(propiedad)
@@ -71,7 +73,8 @@ class CrearCachePropiedadHandler(CrearPropiedadBaseHandler):
             "banos": comando.banos,
             "estacionamientos": comando.estacionamientos,
             "superficie": comando.superficie,
-            "imagen": comando.imagen
+            "imagen": comando.imagen,
+            "vendido" : f"{comando.vendido}"
         }
         redis = RedisRepositorio()
         redis.lpush("propiedades", str(propiedad_ext))

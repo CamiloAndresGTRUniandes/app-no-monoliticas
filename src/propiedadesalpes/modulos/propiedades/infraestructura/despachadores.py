@@ -39,7 +39,8 @@ class Despachador:
             estacionamientos = evento.estacionamientos,
             fecha_publicacion = evento.fecha_publicacion,
             fecha_baja = evento.fecha_baja,
-            descripcion = evento.descripcion)
+            descripcion = evento.descripcion,
+            vendido = evento.vendido)
         
         evento_integracion = EventoPropiedadCreada(data=payload)
         self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoPropiedadCreada))

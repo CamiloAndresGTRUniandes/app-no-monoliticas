@@ -33,4 +33,5 @@ class Propiedad(db.Model):
     fecha_baja = db.Column(db.DateTime, nullable=True)
     estacionamientos = db.Column(db.Integer, nullable=True)
     superficie = db.Column(db.Integer, nullable=True)
+    vendido = db.Column(db.Integer, nullable=True)
 

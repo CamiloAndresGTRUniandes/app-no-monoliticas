@@ -36,7 +36,8 @@ class ObtenerTodasPropiedadesHandler(ReservaQueryBaseHandler):
                 estacionamientos= propiedad.estacionamientos,
                 superficie= propiedad.superficie,
                 imagen= propiedad.imagen,
-                direccion=propiedad.direccion)
+                direccion=propiedad.direccion,
+                vendido= propiedad.vendido)
             propiedades_dto.append(dto)
         
         return QueryResultado(resultado=propiedades_dto)

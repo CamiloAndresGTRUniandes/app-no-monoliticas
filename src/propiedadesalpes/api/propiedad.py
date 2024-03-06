@@ -34,7 +34,8 @@ def crear():
             banos=propiedad_dto.banos,
             estacionamientos=propiedad_dto.estacionamientos,
             superficie=propiedad_dto.superficie,
-            imagen=propiedad_dto.imagen)
+            imagen=propiedad_dto.imagen,
+            vendido = propiedad_dto.vendido)
 
         ejecutar_commando(comando)
         return Response('{}', status=202, mimetype='application/json')

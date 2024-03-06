@@ -47,19 +47,21 @@ class MapeadorPropiedad(RepMap):
         return propiedad_dto
     
     def dto_a_entidad(self, dto: PropiedadDTO) -> Propiedad:
-        propiedad = Propiedad()
-        propiedad.nombre=dto.nombre
-        propiedad.descripcion=dto.descripcion
-        propiedad.tipo=dto.tipo 
-        propiedad.estado=dto.estado 
-        propiedad.fecha_creacion=dto.fecha_creacion 
-        propiedad.fecha_actualizacion=dto.fecha_actualizacion 
-        propiedad.habitaciones=dto.habitaciones 
-        propiedad.precio= dto.precio 
-        propiedad.superficie= dto.superficie
-        propiedad.direccion=dto.direccion
-        propiedad.imagen=dto.imagen
-        propiedad.banos =dto.banos
+        propiedad = Propiedad(
+        nombre=dto.nombre,
+        descripcion=dto.descripcion,
+        tipo=dto.tipo,
+        estado=dto.estado,
+        fecha_creacion=dto.fecha_creacion,
+        fecha_actualizacion=dto.fecha_actualizacion, 
+        habitaciones=dto.habitaciones,
+        precio= dto.precio, 
+        superficie= dto.superficie,
+        direccion=dto.direccion,
+        imagen=dto.imagen,
+        banos =dto.banos,
+        vendido= dto.vendido
+        )
         return propiedad
     
     def entidad_a_externo(self, dto: Propiedad) -> dict:

@@ -27,6 +27,7 @@ class Propiedad(AgregacionRaiz):
     estacionamientos: int = field(default_factory=int)
     superficie: int = field(default_factory=int)
     imagen: str= field(default_factory=str)
+    vendido: int = field(default_factory=int)
     
 
     def crear_propiedad(self, propiedad: "Propiedad"):
@@ -45,6 +46,7 @@ class Propiedad(AgregacionRaiz):
         self.estacionamientos = propiedad.estacionamientos
         self.superficie = propiedad.superficie
         self.imagen = propiedad.imagen
+        self.vendido = propiedad.vendido
 
         self.agregar_evento(PropiedadCreada(
             id_propiedad= str(self.id_propiedad), 
@@ -62,6 +64,7 @@ class Propiedad(AgregacionRaiz):
             banos= str(self.banos),
             estacionamientos= str(self.estacionamientos),
             superficie= str(self.superficie),
-            imagen= str(self.imagen)))
+            imagen= str(self.imagen)),
+            vendido = str(self.vendido))
 
 
