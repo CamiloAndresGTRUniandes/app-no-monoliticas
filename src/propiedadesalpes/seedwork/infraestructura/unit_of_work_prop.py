@@ -79,31 +79,31 @@ def is_flask():
         return False
 
 def registrar_unidad_de_trabajo(serialized_obj):
-    from config.uow import UnidadTrabajoSQLAlchemy
+    from config.unit_of_work_prop import UnidadTrabajoSQLAlchemy
     from flask import session
     
 
-    session['uow'] = serialized_obj
+    session['unit_of_work_prop'] = serialized_obj
 
-def flask_uow():
+def flask_unit_of_work_prop():
     from flask import session
-    from config.uow import UnidadTrabajoSQLAlchemy
-    if session.get('uow'):
-        return session['uow']
+    from config.unit_of_work_prop import UnidadTrabajoSQLAlchemy
+    if session.get('unit_of_work_prop'):
+        return session['unit_of_work_prop']
     else:
-        uow_serialized = pickle.dumps(UnidadTrabajoSQLAlchemy())
-        registrar_unidad_de_trabajo(uow_serialized)
-        return uow_serialized
+        unit_of_work_prop_serialized = pickle.dumps(UnidadTrabajoSQLAlchemy())
+        registrar_unidad_de_trabajo(unit_of_work_prop_serialized)
+        return unit_of_work_prop_serialized
 
 def unidad_de_trabajo() -> UnidadTrabajo:
     if is_flask():
-        return pickle.loads(flask_uow())
+        return pickle.loads(flask_unit_of_work_prop())
     else:
         raise Exception('No hay unidad de trabajo')
 
-def guardar_unidad_trabajo(uow: UnidadTrabajo):
+def guardar_unidad_trabajo(unit_of_work_prop: UnidadTrabajo):
     if is_flask():
-        registrar_unidad_de_trabajo(pickle.dumps(uow))
+        registrar_unidad_de_trabajo(pickle.dumps(unit_of_work_prop))
     else:
         raise Exception('No hay unidad de trabajo')
 
