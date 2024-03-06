@@ -7,7 +7,7 @@ from modulos.propiedades.dominio.entidades import Propiedad
 from modulos.propiedades.aplicacion.comandos.base import CrearPropiedadBaseHandler
 from modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedad
 from modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
-from seedwork.infraestructura.uow import UnidadTrabajoPuerto
+from seedwork.infraestructura.unit_of_work_prop import UnidadTrabajoPuerto
 from seedwork.aplicacion.comandos import ejecutar_commando as comando
 
 @dataclass

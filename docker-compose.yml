@@ -110,49 +110,11 @@ services:
     networks:
       - pulsar
     environment:
-      POSTGRES_DB: properties
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: LosAndes1234
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 2s
-      timeout: 5s
-      retries: 5
-
-  db-users:
-    image: postgres:latest
-    container_name: db-users
-    hostname: db-users
-    ports:
-      - "5433:5433"
-    profiles: ["db"]
-    command: -p 5433
-    networks:
-      - pulsar
-    environment:
-      POSTGRES_DB: users
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: LosAndes1234
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 2s
-      timeout: 5s
-      retries: 5
-
-  db-companies:
-    image: postgres:latest
-    container_name: db-companies
-    hostname: db-companies
-    ports:
-      - "5434:5434"
-    profiles: ["db"]
-    command: -p 5434
-    networks:
-      - pulsar
-    environment:
-      POSTGRES_DB: companies
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: LosAndes1234
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 2s
