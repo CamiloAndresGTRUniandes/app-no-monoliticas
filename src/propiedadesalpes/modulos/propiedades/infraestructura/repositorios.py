@@ -21,6 +21,9 @@ class RepositorioPropiedadesPostgresSQL(RepositorioPropiedades):
             propiedad_dto = self._fabrica_propiedades.crear_objeto(propiedad, MappeadorPropiedad())
             db.session.add(propiedad_dto)
 
+    def actualizar(self, propiedad : Propiedad):
+            self._fabrica_propiedades.crear_objeto(propiedad, MappeadorPropiedad())
+            
     
     def obtener_todos(self) -> list[Propiedad]:
         propiedades_list = db.session.query(Propiedad).all()

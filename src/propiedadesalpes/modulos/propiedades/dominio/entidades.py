@@ -49,7 +49,7 @@ class Propiedad(AgregacionRaiz):
         self.vendido = propiedad.vendido
 
         self.agregar_evento(PropiedadCreada(
-            id_propiedad= str(self.id_propiedad), 
+            id_propiedad= str(self.id), 
             nombre= str(self.nombre), 
             descripcion= str(self.descripcion), 
             direccion= str(self.direccion), 
@@ -64,7 +64,12 @@ class Propiedad(AgregacionRaiz):
             banos= str(self.banos),
             estacionamientos= str(self.estacionamientos),
             superficie= str(self.superficie),
-            imagen= str(self.imagen)),
-            vendido = str(self.vendido))
+            imagen= str(self.imagen),
+            vendido= str(self.vendido)))
+    
+    def actualizar_propiedad_vendida(self, vendido: int):
+        self.vendido = vendido
+        #agregar evento
+
 
 

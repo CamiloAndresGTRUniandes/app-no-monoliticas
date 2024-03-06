@@ -1,5 +1,6 @@
 import json
 import time
+from modulos.propiedades.aplicacion.comandos.actualizar_propiedad_vendida import ActualizarPropiedadVendida
 import pulsar,_pulsar  
 from pulsar.schema import *
 import logging
@@ -37,7 +38,8 @@ def suscribirse_a_eventos():
                 banos= propiedad_dto.banos,
                 estacionamientos=  propiedad_dto.estacionamientos,
                 superficie= propiedad_dto.superficie,
-                imagen= propiedad_dto.imagen
+                imagen= propiedad_dto.imagen,
+                vendido= propiedad_dto.vendido
                 )
             ejecutar_commando(comando)
             consumidor.acknowledge(mensaje)     
@@ -48,6 +50,30 @@ def suscribirse_a_eventos():
         traceback.print_exc()
         if cliente:
             cliente.close()
+
+def suscribirse_a_eventos_ventas():
+    cliente = None
+    try:
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        consumidor = cliente.subscribe('sales-property', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='propiedadesalpes-sub-eventos', schema=AvroSchema(EventoPropiedadCreada))
+
+        while True:
+            mensaje = consumidor.receive()
+            ex = mensaje.value()
+            message = ex.data
+            comando = ActualizarPropiedadVendida(
+                id = message.id,
+                vendido = message.vendido
+                )
+            ejecutar_commando(comando)
+            consumidor.acknowledge(mensaje)     
+
+        cliente.close()
+    except:
+        logging.error('ERROR: Suscribiendose al tópico de eventos!')
+        traceback.print_exc()
+        if cliente:
+            cliente.close()  
 
 def suscribirse_a_comandos():
     cliente = None
@@ -69,7 +95,7 @@ def suscribirse_a_comandos():
             cliente.close()
 
 import pika
-def suscribirse_a_comandos_rabbit():
+def suscribirse_a_eventos_rabbit():
     def callback(ch, method, properties, body):
             propiedad_dto = json.loads(body)
             comando = CrearCachePropiedad(
@@ -88,7 +114,8 @@ def suscribirse_a_comandos_rabbit():
                 banos= propiedad_dto['banos'],
                 estacionamientos=  propiedad_dto['estacionamientos'],
                 superficie= propiedad_dto['superficie'],
-                imagen= propiedad_dto['imagen'])
+                imagen= propiedad_dto['imagen'],
+                vendido = propiedad_dto['vendido'])
             ejecutar_commando(comando)
     topico = 'comandos-propiedad'
     connection = conectar_rabbitmq()

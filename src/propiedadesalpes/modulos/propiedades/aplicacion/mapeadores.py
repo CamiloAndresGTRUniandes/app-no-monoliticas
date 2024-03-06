@@ -18,6 +18,7 @@ class MapeadorPropiedadDTOJson(AppMap):
         propiedad_dto.fecha_actualizacion = datetime.now()
         propiedad_dto.habitaciones = externo.get("habitaciones")
         propiedad_dto.banos = externo.get("banos")
+        propiedad_dto.vendido = externo.get("vendido")
         return propiedad_dto
     
     def dto_a_externo(self, dto: PropiedadDTO) -> dict:
@@ -44,6 +45,8 @@ class MapeadorPropiedad(RepMap):
         propiedad_dto.precio = entidad.precio
         propiedad_dto.superficie = entidad.superficie
         propiedad_dto.direccion = entidad.direccion
+        propiedad_dto.vendido = entidad.vendido
+        
         return propiedad_dto
     
     def dto_a_entidad(self, dto: PropiedadDTO) -> Propiedad:

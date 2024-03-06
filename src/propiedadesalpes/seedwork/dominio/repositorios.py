@@ -22,9 +22,9 @@ class Repositorio(ABC):
     def agregar(self, entity: Entidad):
         ...
 
-    # @abstractmethod
-    # def actualizar(self, entity: Entidad):
-    #     ...
+    @abstractmethod
+    def actualizar(self, entity: Entidad):
+        ...
 
     # @abstractmethod
     # def eliminar(self, entity_id: UUID):

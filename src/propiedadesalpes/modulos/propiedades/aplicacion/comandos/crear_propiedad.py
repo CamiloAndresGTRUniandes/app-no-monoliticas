@@ -50,6 +50,7 @@ class CrearPropiedadHandler(CrearPropiedadBaseHandler):
             vendido= comando.vendido)
         
         propiedad : Propiedad = self._fabrica_propiedades.crear_objeto(propiedad_dto, MapeadorPropiedad())
+        print(f"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX : {propiedad.vendido}")
         propiedad.crear_propiedad(propiedad)
 
         repositorio = self._fabrica_repositorio.crear_objeto(RepositorioPropiedades.__class__)
@@ -58,6 +59,6 @@ class CrearPropiedadHandler(CrearPropiedadBaseHandler):
         UnidadTrabajoPuerto.commit()
 
 @comando.register(CrearPropiedad)
-def ejecutar_comando_crear_reserva(comando: CrearPropiedad):
+def ejecutar_comando_crear_propiedad(comando: CrearPropiedad):
     handler = CrearPropiedadHandler()
     handler.handle(comando)

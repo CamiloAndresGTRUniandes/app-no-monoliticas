@@ -83,7 +83,8 @@ class Despachador:
             "estacionamientos" : f"{evento.estacionamientos}",
             "fecha_publicacion" : f"{evento.fecha_publicacion}",
             "fecha_baja" : f"{evento.fecha_baja}",
-            "descripcion" : f"{evento.descripcion}"
+            "descripcion" : f"{evento.descripcion}",
+            "vendido" : f"{evento.vendido}"
             }
         mensaje = json.dumps(payload)
         self._publicar_mensaje_rabbit(mensaje, topico)

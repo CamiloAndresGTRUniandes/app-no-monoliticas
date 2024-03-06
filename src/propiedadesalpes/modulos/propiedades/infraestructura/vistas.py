@@ -2,7 +2,7 @@ from seedwork.infraestructura.vistas import Vista
 from modulos.propiedades.infraestructura.redis import RedisRepositorio
 from modulos.propiedades.dominio.entidades import Propiedad
 from config.db import db
-from .dto import Propiedad as PropeidadDTO
+from .dto import Propiedad as PropiedadDTO
 import json
 
 
@@ -17,7 +17,7 @@ class VistaPropiedad(Vista):
             fixed = fixed.replace("'", '"')
             propiedad_dto = json.loads(fixed)
 
-            propiedades.append(PropeidadDTO(id=propiedad_dto['id_propiedad'],
+            propiedades.append(PropiedadDTO(id=propiedad_dto['id_propiedad'],
                                          nombre= propiedad_dto['nombre'],
                                          descripcion= propiedad_dto['descripcion'],
                                          direccion= propiedad_dto['direccion'],
@@ -38,5 +38,9 @@ class VistaPropiedad(Vista):
 
         return propiedades
     
-    def obtener_por(self, id=None, estado=None, id_cliente=None, **kwargs):
-        raise NotImplementedError('Método no implementado')
+    def obtener_por(self, id=None, estado=None, id_cliente=None, **kwargs) -> [PropiedadDTO]:
+        params = dict()
+        if id:
+            params['id'] = str(id)
+
+        return db.session.query(PropiedadDTO).filter_by(**params)

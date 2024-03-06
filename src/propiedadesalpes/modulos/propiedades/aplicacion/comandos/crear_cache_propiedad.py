@@ -28,7 +28,7 @@ class CrearCachePropiedad(Comando):
     estacionamientos: int = field(default_factory=int)
     superficie: int = field(default_factory=int)
     imagen: str = field(default_factory=str)
-    vendido: bool = field(default_factory=False)
+    vendido: int = field(default_factory=int)
 
 class CrearCachePropiedadHandler(CrearPropiedadBaseHandler):
     def handle(self, comando: CrearCachePropiedad):
@@ -50,7 +50,7 @@ class CrearCachePropiedadHandler(CrearPropiedadBaseHandler):
             superficie=comando.superficie,
             imagen=comando.imagen,
             vendido = comando.vendido)
-        
+        print(f"En create Cache XXXXXX: {propiedad_dto.vendido}")
         # propiedad : Propiedad = self._fabrica_propiedades.crear_objeto(propiedad_dto, MapeadorPropiedad())
         # propiedad.crear_propiedad(propiedad)
 

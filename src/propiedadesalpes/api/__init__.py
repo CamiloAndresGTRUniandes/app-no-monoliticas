@@ -22,11 +22,11 @@ def comenzar_consumidor():
 
     # Suscripción a eventos
     
-    #threading.Thread(target=propiedad.suscribirse_a_eventos).start()
+    threading.Thread(target=propiedad.suscribirse_a_eventos).start()
 
     # Suscripción a comandos
     #threading.Thread(target=propiedad.suscribirse_a_comandos).start()
-    threading.Thread(target=propiedad.suscribirse_a_comandos_rabbit).start()
+    #threading.Thread(target=propiedad.suscribirse_a_eventos_rabbit).start()
     
 
 
