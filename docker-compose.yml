@@ -114,7 +114,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: LosAndes1234
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 2s
