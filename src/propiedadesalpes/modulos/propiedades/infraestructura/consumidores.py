@@ -1,17 +1,19 @@
 import json
 import time
 from modulos.propiedades.aplicacion.comandos.actualizar_propiedad_vendida import ActualizarPropiedadVendida
+from modulos.propiedades.aplicacion.servicios import ServicioPropiedad
 import pulsar,_pulsar  
 from pulsar.schema import *
 import logging
 import traceback
 from modulos.propiedades.aplicacion.comandos.crear_cache_propiedad import CrearCachePropiedad
 from flask import redirect, render_template, request, session, url_for
-
+import requests
 from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada, PropertySoldEvent
 from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
 from seedwork.aplicacion.comandos import ejecutar_commando
 from seedwork.infraestructura import utils
+
 
 def suscribirse_a_eventos():
     cliente = None
@@ -64,11 +66,10 @@ def suscribirse_a_eventos_ventas():
             ex = mensaje.value()
             message = ex.data
             print(f"PopertySold Recieved XXX: {message}")
-            comando = ActualizarPropiedadVendida(
-                id = message.property_id,
-                vendido = message.sold
-                )
-            ejecutar_commando(comando)
+            if (message.property_id):
+                sp = ServicioPropiedad()
+                sp.actualizar_propiedad_vendida(message.property_id)
+
             consumidor.acknowledge(mensaje)     
 
         cliente.close()

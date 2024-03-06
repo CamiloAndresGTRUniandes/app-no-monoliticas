@@ -1,3 +1,4 @@
+from modulos.propiedades.aplicacion.servicios import ServicioPropiedad
 import seedwork.presentacion.api as api
 from seedwork.dominio.excepciones import ExcepcionDominio
 from modulos.propiedades.aplicacion.mapeadores import MapeadorPropiedadDTOJson
@@ -41,7 +42,19 @@ def crear():
         return Response('{}', status=202, mimetype='application/json')
     except ExcepcionDominio as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
-    
+
+@bp.route('', methods=('POST',))
+def update_propiedad():
+    try:
+        update_data = request.json
+        if (update_data['property_id']):
+            sp = ServicioPropiedad()
+            sp.actualizar_propiedad_vendida(update_data['property_id'])
+        return Response('{}', status=200, mimetype='application/json')
+    except ExcepcionDominio as e:
+        return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
+
+
 @bp.route('', methods=('GET',))
 def dar_reserva_usando_query():
     map_propiedad = MapeadorPropiedadDTOJson()
