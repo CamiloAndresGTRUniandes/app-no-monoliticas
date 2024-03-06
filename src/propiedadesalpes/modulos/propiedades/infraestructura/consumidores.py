@@ -6,6 +6,7 @@ from pulsar.schema import *
 import logging
 import traceback
 from modulos.propiedades.aplicacion.comandos.crear_cache_propiedad import CrearCachePropiedad
+from flask import redirect, render_template, request, session, url_for
 
 from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada, PropertySoldEvent
 from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
@@ -58,13 +59,14 @@ def suscribirse_a_eventos_ventas():
         consumidor = cliente.subscribe('sales-property', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='sales-sub-eventos', schema=AvroSchema(PropertySoldEvent))
 
         while True:
+            
             mensaje = consumidor.receive()
             ex = mensaje.value()
             message = ex.data
             print(f"PopertySold Recieved XXX: {message}")
             comando = ActualizarPropiedadVendida(
-                id = message.id,
-                vendido = message.vendido
+                id = message.property_id,
+                vendido = message.sold
                 )
             ejecutar_commando(comando)
             consumidor.acknowledge(mensaje)     

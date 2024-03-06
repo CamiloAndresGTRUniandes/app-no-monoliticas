@@ -28,7 +28,7 @@ class Dispatcher:
     def publish_event(self, event, topic, schema):
         if (event.__class__ is PropertySold):
             payload = ProperySoldPayload(
-                id = event.property_id,
+                property_id = event.property_id,
                 sold = 1
             )
             integration_event = PropertySoldEvent(data= payload)

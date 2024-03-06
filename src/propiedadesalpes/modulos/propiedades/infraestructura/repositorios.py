@@ -23,6 +23,7 @@ class RepositorioPropiedadesPostgresSQL(RepositorioPropiedades):
 
     def actualizar(self, propiedad : Propiedad):
             self._fabrica_propiedades.crear_objeto(propiedad, MappeadorPropiedad())
+            db.session.commit()
             
     
     def obtener_todos(self) -> list[Propiedad]:
@@ -32,8 +33,8 @@ class RepositorioPropiedadesPostgresSQL(RepositorioPropiedades):
     def obtener_tipo(self) -> type:
         return Propiedad.__class__
     
-    def obtener_por_id(self, id: UUID) -> Propiedad:
-        propiedad_dto = db.session.query(PropiedadDTO).filter_by(id=str(id)).one()
+    def obtener_por_id(self, id: str) -> Propiedad:
+        propiedad_dto = db.session.query(PropiedadDTO).filter_by(id=id).one()
         return self._fabrica_propiedades.crear_objeto(propiedad_dto, MappeadorPropiedad())
     
 class RepositorioPropiedadesRedis(RepositorioPropiedades):
