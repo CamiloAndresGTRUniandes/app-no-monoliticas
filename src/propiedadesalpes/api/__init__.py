@@ -23,6 +23,7 @@ def comenzar_consumidor():
     
     threading.Thread(target=propiedad.suscribirse_a_eventos).start()
     threading.Thread(target=propiedad.suscribirse_a_eventos_ventas).start()
+    threading.Thread(target=propiedad.suscribirse_a_eventos_companias).start()
 
     # Suscripción a comandos
     #threading.Thread(target=propiedad.suscribirse_a_comandos).start()

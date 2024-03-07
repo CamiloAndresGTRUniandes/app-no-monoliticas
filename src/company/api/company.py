@@ -25,7 +25,8 @@ def create_company():
             nit = company_dto.nit,
             address = company_dto.address,
             city = company_dto.city,
-            country = company_dto.country
+            country = company_dto.country,
+            property_id = dict_company['property_id']
         )
         execute_command(command)
         return Response('{}', status=202, mimetype='application/json')

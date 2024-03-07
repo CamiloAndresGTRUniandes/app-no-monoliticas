@@ -90,10 +90,10 @@ def suscribirse_a_eventos_companias():
             mensaje = consumidor.receive()
             ex = mensaje.value()
             message = ex.data
-            print(f"PopertySold Recieved XXX: {message}")
+            print(f"Company RecievedXXXXXXXXXXXXXXXXXXX: {message}")
             if (message.property_id):
                 sp = ServicioPropiedad()
-                sp.agregar_compania(Company(
+                sp.agregar_compania(message.property_id,Company(
                     id = message.id,
                     name = message.name,
                     nit = message.nit,

@@ -24,8 +24,9 @@ class Company(RootAggregation):
         self.city = company.city
         self.country = company.country
         self.created_at = datetime.datetime.now()
-
+        print(f"XXXXXXXXXXXX{self.id}")
         self.add_event(CompanyCreated(
+            id = str(self.id),
             name = self.format_string(f"{self.name}"),
             nit = self.format_string(f"{self.nit}"),
             address =self.format_string(f"{self.address}"),

@@ -15,7 +15,7 @@ class Company(db.Model):
     city = db.Column(db.String, nullable=True)
     country = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, nullable=True)
-    properties = db.relationship('properties', secondary = 'property_company')
+    properties = db.relationship('Propiedad', secondary='property_company', back_populates='companies')
 
 
 class Propiedad(db.Model):
@@ -38,7 +38,7 @@ class Propiedad(db.Model):
     estacionamientos = db.Column(db.Integer, nullable=True)
     superficie = db.Column(db.Integer, nullable=True)
     vendido = db.Column(db.Integer, nullable=True)
-    companies = db.relationship('companies', secondary = 'property_company')
+    companies = db.relationship('Company', secondary='property_company', back_populates='properties')
 
 
 class PropertyCompany(db.Model):

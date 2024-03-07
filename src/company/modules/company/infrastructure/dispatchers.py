@@ -18,6 +18,7 @@ class Dispatcher:
         try:
             client = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
             producer = client.create_producer(topic, schema=AvroSchema(CompanyCreatedEvent))
+            print("publish message @@@@@@@@@@@@@@@@@@@@@@")
             producer.send(message)
             client.close()
         except Exception as ex:
@@ -25,14 +26,18 @@ class Dispatcher:
             raise ex
 
     def publish_event(self, event, topic):
+        print("XXXXXXXXXXXXXXXXXXXXXX LLEGO A PUBLISH VVVVVVVVVVVVVVVVVVVVVVVVVVV")
         payload = CompanyCreatedPayload(
+            id = str(event.id),
             name = event.name,
             nit = event.nit,
             address = event.address,
             city = event.city,
             country = event.country,
-            created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            property_id = event.property_id
         )
+        print(f"XXXXXXXXXXXXXXXXXXXXXX {payload} VVVVVVVVVVVVVVVVVVVVVVVVVVV")
         integration_event = CompanyCreatedEvent(data= payload)
         self._publish_message(integration_event, topic, AvroSchema(CompanyCreatedEvent))
 

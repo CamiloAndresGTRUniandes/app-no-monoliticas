@@ -1,10 +1,10 @@
 from config.db import db
 from seedwork.aplicacion.servicios import Servicio
 from modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
-from modulos.propiedades.infraestructura.dto import Propiedad as PropiedadDTOInf
+from modulos.propiedades.infraestructura.dto import Propiedad as PropiedadDTOInf, Company as CompanyDTOInf
 from modulos.propiedades.dominio.fabricas import FabricaPropiedades
 from modulos.propiedades.dominio.entidades import Propiedad
-from modulos.propiedades.dominio.objetos_valor import Company
+from modulos.propiedades.dominio.objetos_valor import Company as Company_vo
 from modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
 from seedwork.infraestructura.unit_of_work_prop import UnidadTrabajoPuerto
 from flask import Flask
@@ -49,12 +49,19 @@ class ServicioPropiedad(Servicio):
         except Exception as e:
             print(f"Error actualizando: {e}")
 
-    def agregar_compania(self, id_propiedad, compania : Company):
+    def agregar_compania(self, id_propiedad, compania : Company_vo):
         try:
             from modulos.propiedades.infraestructura.event_context import app
             with app.app_context():
-                propiedad: Propiedad = db.session.query(PropiedadDTOInf).filter_by(id= id_propiedad).one()
-                propiedad.agregar_compania(compania)
+                propiedad_db = db.session.query(PropiedadDTOInf).filter_by(id= id_propiedad).one()
+                company = CompanyDTOInf()
+                company.id = compania.id
+                company.name = compania.name
+                company.nit = compania.nit
+                company.address = compania.address
+                company.city = compania.city
+                company.country = compania.country
+                propiedad_db.companies.append(company)
                 db.session.commit()
         except Exception as e:
             print(f"Error actualizando: {e}")
