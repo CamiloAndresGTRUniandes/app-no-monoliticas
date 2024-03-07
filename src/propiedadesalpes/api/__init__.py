@@ -1,7 +1,6 @@
 import os
 from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 from flask import Flask
-from flask_cors import CORS
 from modulos.propiedades.infraestructura.despachadores import Despachador
 
 # Identifica el directorio base
@@ -34,7 +33,6 @@ def comenzar_consumidor():
 def create_app():
     # Init la aplicacion de Flask
     app = Flask(__name__, instance_relative_config=True)
-    CORS(app)
     app.config['SQLALCHEMY_DATABASE_URI'] = \
         f"postgresql://postgres:LosAndes1234@{os.getenv('DATABASE_HOST', default='127.0.0.1')}:5432/properties"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True

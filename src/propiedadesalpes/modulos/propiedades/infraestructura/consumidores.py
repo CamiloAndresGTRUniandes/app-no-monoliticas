@@ -1,15 +1,15 @@
+import datetime
 import json
 import time
 from modulos.propiedades.aplicacion.comandos.actualizar_propiedad_vendida import ActualizarPropiedadVendida
 from modulos.propiedades.aplicacion.servicios import ServicioPropiedad
+from modulos.propiedades.dominio.objetos_valor import Company
 import pulsar,_pulsar  
 from pulsar.schema import *
 import logging
 import traceback
 from modulos.propiedades.aplicacion.comandos.crear_cache_propiedad import CrearCachePropiedad
-from flask import redirect, render_template, request, session, url_for
-import requests
-from modulos.propiedades.infraestructura.schema.v1.eventos import EventoPropiedadCreada, PropertySoldEvent
+from modulos.propiedades.infraestructura.schema.v1.eventos import CompanyCreatedEvent, EventoPropiedadCreada, PropertySoldEvent
 from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
 from seedwork.aplicacion.comandos import ejecutar_commando
 from seedwork.infraestructura import utils
@@ -69,6 +69,39 @@ def suscribirse_a_eventos_ventas():
             if (message.property_id):
                 sp = ServicioPropiedad()
                 sp.actualizar_propiedad_vendida(message.property_id)
+
+            consumidor.acknowledge(mensaje)     
+
+        cliente.close()
+    except:
+        logging.error('ERROR: Suscribiendose al tópico de eventos!')
+        traceback.print_exc()
+        if cliente:
+            cliente.close()  
+
+def suscribirse_a_eventos_companias():
+    cliente = None
+    try:
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        consumidor = cliente.subscribe('company-events', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='company-sub-eventos', schema=AvroSchema(CompanyCreatedEvent))
+
+        while True:
+            
+            mensaje = consumidor.receive()
+            ex = mensaje.value()
+            message = ex.data
+            print(f"PopertySold Recieved XXX: {message}")
+            if (message.property_id):
+                sp = ServicioPropiedad()
+                sp.agregar_compania(Company(
+                    id = message.id,
+                    name = message.name,
+                    nit = message.nit,
+                    address = message.address,
+                    city = message.city,
+                    country = message.country,
+                    created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    ))
 
             consumidor.acknowledge(mensaje)     
 

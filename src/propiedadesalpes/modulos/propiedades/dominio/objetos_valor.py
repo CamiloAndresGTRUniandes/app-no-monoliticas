@@ -4,6 +4,7 @@ En este archivo usted encontrará los objetos valor del dominio de cliente
 
 """
 
+import datetime
 from seedwork.dominio.objetos_valor import ObjetoValor, Ciudad
 from dataclasses import dataclass
 
@@ -43,3 +44,13 @@ class Direccion(ObjetoValor):
     region: str
     pais: str
     codigo_postal: str
+
+@dataclass(frozen=True)
+class Company(ObjetoValor):
+    id: str
+    name: str
+    nit: str
+    address: str
+    city: str
+    country: str
+    created_at: str

@@ -3,10 +3,8 @@ from datetime import datetime
 import uuid
 from seedwork.dominio.entidades import AgregacionRaiz
 from dataclasses import dataclass, field
-
+from .objetos_valor import Company
 from .eventos import PropiedadCreada
-
-
 
 
 @dataclass
@@ -28,6 +26,7 @@ class Propiedad(AgregacionRaiz):
     superficie: int = field(default_factory=int)
     imagen: str= field(default_factory=str)
     vendido: int = field(default_factory=int)
+    companies: list[Company] = field(default_factory=list[Company])
     
 
     def crear_propiedad(self, propiedad: "Propiedad"):
@@ -70,6 +69,9 @@ class Propiedad(AgregacionRaiz):
     def actualizar_propiedad_vendida(self, vendido: int):
         self.vendido = vendido
         #agregar evento
+
+    def agregar_compania(self, compania: Company):
+        self.companies.append(compania)
 
 
 
