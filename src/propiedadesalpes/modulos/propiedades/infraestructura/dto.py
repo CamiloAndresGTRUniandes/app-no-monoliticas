@@ -1,19 +1,9 @@
-"""DTOs para la capa de infrastructura del dominio de vuelos
-
-En este archivo usted encontrará los DTOs (modelos anémicos) de
-la infraestructura del dominio de vuelos
-
-"""
 
 from config.db import db
-from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, ForeignKey, Integer, Table, DECIMAL
-
-import uuid
+from sqlalchemy import ForeignKey
 
 Base = db.declarative_base()
 
-# Tabla intermedia para tener la relación de muchos a muchos entre la tabla reservas e itinerarios
 class Propiedad(db.Model):
     __tablename__ = "propiedades"
     id = db.Column(db.String, primary_key=True)
@@ -34,4 +24,21 @@ class Propiedad(db.Model):
     estacionamientos = db.Column(db.Integer, nullable=True)
     superficie = db.Column(db.Integer, nullable=True)
     vendido = db.Column(db.Integer, nullable=True)
+    companies = db.relationship('companies', secondary = 'property_company')
 
+class Company(db.Model):
+    __tablename__ = 'companies'
+    id = db.Column(db.String, primary_key=True)
+    name = db.Column(db.String, nullable=True)
+    nit = db.Column(db.String, nullable=True)
+    address = db.Column(db.String, nullable=True)
+    city = db.Column(db.String, nullable=True)
+    country = db.Column(db.String, nullable=True)
+    created_at = db.Column(db.DateTime, nullable=True)
+    properties = db.relationship('properties', secondary = 'property_company')
+
+
+class PropertyCompany(db.Model):
+    __tablename__ = "property_company"
+    property_id = db.Column(db.String, ForeignKey('propiedades.id'), primary_key=True)
+    company_id = db.Column(db.String, ForeignKey('companies.id'), primary_key=True)

@@ -31,3 +31,16 @@ class ProperySoldPayload(Record):
 
 class PropertySoldEvent(EventoIntegracion):
     data = ProperySoldPayload()
+
+class CompanyCreatedPayload(Record):
+    id = String()
+    name = String()
+    nit = String()
+    address = String()
+    city = String()
+    country = String()
+    created_at: String()
+    property_id = String()
+
+class CompanyCreatedEvent(EventoIntegracion):
+    data = CompanyCreatedPayload()
