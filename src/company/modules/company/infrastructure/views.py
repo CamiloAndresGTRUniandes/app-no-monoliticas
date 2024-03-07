@@ -18,10 +18,10 @@ class CompanyView(View):
 
             companies.append(CompanyDTO(
                 name = companyDto['name'],
-                price = companyDto['price'],
-                currency = companyDto['currency'],
-                seller = companyDto['seller'],
-                created_at = companyDto['created_at']
+                nit = companyDto['nit'],
+                address = companyDto['address'],
+                city = companyDto['city'],
+                country = companyDto['country']
                 ))
 
         return companies

@@ -15,21 +15,25 @@ import datetime
 
 @dataclass
 class CreateCompany(Command):
+    id_company: str = field(default_factory=str)
     name: str = field(default_factory=str)
-    price: float = field(default_factory=float)
-    currency: str = field(default_factory=str)
-    seller : str = field(default_factory=str)
+    nit: str = field(default_factory=str)
+    address: str = field(default_factory=str)
+    city: str = field(default_factory=str)
+    country: str = field(default_factory=str)
+    property_id: str = field(default_factory=str)
 
 class CreateCompanyHandler(CreateCompanyBaseHandler):
     def handle(self, command: CreateCompany):
         company_dto = CompanyDTO()
-        company_dto.name = command.name,
-        company_dto.price = command.price,
-        company_dto.currency = command.currency
-        company_dto.seller = command.seller
+        company_dto.name = command.name
+        company_dto.nit = command.nit
+        company_dto.address = command.address
+        company_dto.city = command.city
+        company_dto.country = command.country
             
         company : Company = self.companies_factory.create_object(company_dto, MapperCompany())
-        company.create_company(company)
+        company.create_company(company, command.property_id)
         repository = self.reposiroty_factory.create_object(CompanyRepository.__class__)
         UnitOfWorkPortCompany.register_batch(repository.add, company)
         UnitOfWorkPortCompany.commit()

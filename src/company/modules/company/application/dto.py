@@ -6,8 +6,9 @@ from seedwork.application.dto import DTO
 
 @dataclass
 class CompanyDTO(DTO):
-    id_company : str = field(default_factory=str)
+    id_company: str = field(default_factory=str)
     name: str = field(default_factory=str)
-    price: str = field(default_factory=str)
-    currency: str = field(default_factory=str)
-    seller : str = field(default_factory=str)
+    nit: str = field(default_factory=str)
+    address: str = field(default_factory=str)
+    city: str = field(default_factory=str)
+    country: str = field(default_factory=str)

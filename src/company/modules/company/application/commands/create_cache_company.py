@@ -20,17 +20,21 @@ import datetime
 
 @dataclass
 class CreateCacheCompany(Command):
+    id_company: str = field(default_factory=str)
     name: str = field(default_factory=str)
-    price: float = field(default_factory=float)
-    currency: str = field(default_factory=str)
-    seller : str = field(default_factory=str)
+    nit: str = field(default_factory=str)
+    address: str = field(default_factory=str)
+    city: str = field(default_factory=str)
+    country: str = field(default_factory=str)
 
 class CreateCacheCompanyHandler(CreateCompanyBaseHandler):
     def handle(self, command: CreateCacheCompany):
-        company_dto = Company
+        company_dto = Company()
         company_dto.name = command.name
-        company_dto.price = Money(command.price, command.currency)
-        company_dto.seller = command.seller
+        company_dto.nit = command.nit
+        company_dto.address = command.address
+        company_dto.city = command.city
+        company_dto.country = command.country
 
         map_company = MapperCompany()
         companyJson = map_company.entity_to_external(company_dto)

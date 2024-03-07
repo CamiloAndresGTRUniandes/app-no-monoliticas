@@ -9,7 +9,7 @@ class CompanyDomainHandler(Handler):
     def company_created_handler(event):
         try:
             dispatcher = Dispatcher()
-            dispatcher.publish_event(event, 'companies-events')
+            dispatcher.publish_event(event, 'company-events')
         except Exception as e:
             logging.error(f"Publish error: {e}")
         

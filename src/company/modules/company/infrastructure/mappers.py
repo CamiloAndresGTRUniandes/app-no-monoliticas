@@ -8,19 +8,21 @@ from .dto import Company as CompanyDTO
 class CompanyMapper(Mapper):
     def entity_to_dto(self, entity: Company) -> CompanyDTO:
         company_dto = CompanyDTO()
-        company_dto.id = entity.id,
+        company_dto.id = entity.id
         company_dto.name = entity.name
-        company_dto.price = entity.price.amount,
-        company_dto.currency = entity.price.currency,
-        company_dto.created_at = entity.created_at,
-        company_dto.seller = entity.seller
+        company_dto.nit = entity.nit
+        company_dto.address = entity.address
+        company_dto.city = entity.city
+        company_dto.country = entity.country
         return company_dto
     
     def dto_to_entity(self, dto: CompanyDTO) -> Company:
         company_entity = Company()
-        company_entity.name = dto.name,
-        company_entity.price = Money(dto.price, dto.currency)
-        company_entity.seller = dto.seller
+        company_entity.name = dto.name
+        company_entity.nit = dto.nit
+        company_entity.address = dto.address
+        company_entity.city = dto.city
+        company_entity.country = dto.country
         return company_entity
     
     def get_type(self) -> type:

@@ -22,9 +22,10 @@ def create_company():
 
         command = CreateCompany(
             name = company_dto.name,
-            price = company_dto.price,
-            currency = company_dto.currency,
-            seller = company_dto.seller
+            nit = company_dto.nit,
+            address = company_dto.address,
+            city = company_dto.city,
+            country = company_dto.country
         )
         execute_command(command)
         return Response('{}', status=202, mimetype='application/json')

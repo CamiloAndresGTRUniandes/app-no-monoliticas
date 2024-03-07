@@ -27,10 +27,11 @@ class Dispatcher:
     def publish_event(self, event, topic):
         payload = CompanyCreatedPayload(
             name = event.name,
-            price = event.price,
-            currency = event.currency,
-            created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            seller = event.seller
+            nit = event.nit,
+            address = event.address,
+            city = event.city,
+            country = event.country,
+            created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         )
         integration_event = CompanyCreatedEvent(data= payload)
         self._publish_message(integration_event, topic, AvroSchema(CompanyCreatedEvent))
