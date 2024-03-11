@@ -47,6 +47,9 @@ tasks:
   - name: Start client sales
     init: gp sync-await update_permissions
     command: flask --app src/sales/api run --debugger --no-reload -p 7000
+  - name: Start bff_web
+    init: gp sync-await update_permissions
+    command: flask --app src/bff_web/api run --debugger --no-reload -p 10000
 
   
 ports:
