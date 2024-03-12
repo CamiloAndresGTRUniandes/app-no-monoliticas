@@ -42,5 +42,5 @@ class CompanyCreatedPayload(Record):
     created_at: String()
     property_id = String()
 
-class CompanyCreatedEvent(EventoIntegracion):
+class CompanyPropertyAssociatedEvent(EventoIntegracion):
     data = CompanyCreatedPayload()

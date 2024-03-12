@@ -28,3 +28,4 @@ redis
 python-dotenv
 pika
 flask_jwt_extended
+requests
