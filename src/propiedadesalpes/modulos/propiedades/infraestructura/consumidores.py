@@ -1,15 +1,17 @@
 import datetime
 import json
 import time
+import uuid
 from modulos.propiedades.aplicacion.comandos.actualizar_propiedad_vendida import ActualizarPropiedadVendida
 from modulos.propiedades.aplicacion.servicios import ServicioPropiedad
 from modulos.propiedades.dominio.objetos_valor import Company
+from modulos.propiedades.infraestructura.dto import Pasos
 import pulsar,_pulsar  
 from pulsar.schema import *
 import logging
 import traceback
 from modulos.propiedades.aplicacion.comandos.crear_cache_propiedad import CrearCachePropiedad
-from modulos.propiedades.infraestructura.schema.v1.eventos import CompanyCreatedEvent, EventoPropiedadCreada, PropertySoldEvent
+from modulos.propiedades.infraestructura.schema.v1.eventos import CompanyPropertyAssociatedEvent, EventoPropiedadCreada, PropertySoldEvent
 from modulos.propiedades.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
 from seedwork.aplicacion.comandos import ejecutar_commando
 from seedwork.infraestructura import utils
@@ -24,27 +26,33 @@ def suscribirse_a_eventos():
         while True:
             mensaje = consumidor.receive()
             ex = mensaje.value()
-            propiedad_dto = ex.data
+            message = ex.data
             comando = CrearCachePropiedad(
-                id_propiedad= propiedad_dto.id_propiedad,
-                nombre= propiedad_dto.nombre,
-                descripcion= propiedad_dto.descripcion,
-                direccion= propiedad_dto.direccion,
-                precio= propiedad_dto.precio,
-                fecha_creacion= propiedad_dto.fecha_creacion,
-                fecha_actualizacion= propiedad_dto.fecha_actualizacion,
-                fecha_publicacion= propiedad_dto.fecha_publicacion,
-                fecha_baja= propiedad_dto.fecha_baja,
-                estado= propiedad_dto.estado,
-                tipo= propiedad_dto.tipo,
-                habitaciones= propiedad_dto.habitaciones,
-                banos= propiedad_dto.banos,
-                estacionamientos=  propiedad_dto.estacionamientos,
-                superficie= propiedad_dto.superficie,
-                imagen= propiedad_dto.imagen,
-                vendido= propiedad_dto.vendido
+                id_propiedad= message.id_propiedad,
+                nombre= message.nombre,
+                descripcion= message.descripcion,
+                direccion= message.direccion,
+                precio= message.precio,
+                fecha_creacion= message.fecha_creacion,
+                fecha_actualizacion= message.fecha_actualizacion,
+                fecha_publicacion= message.fecha_publicacion,
+                fecha_baja= message.fecha_baja,
+                estado= message.estado,
+                tipo= message.tipo,
+                habitaciones= message.habitaciones,
+                banos= message.banos,
+                estacionamientos=  message.estacionamientos,
+                superficie= message.superficie,
+                imagen= message.imagen,
+                vendido= message.vendido
                 )
             ejecutar_commando(comando)
+            sp = ServicioPropiedad()
+            paso = Pasos()
+            paso.id_correlacion = uuid.uuid4()
+            paso.fecha_evento = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            paso.log = f"{PropertySoldEvent} - {message}"
+            sp.saga_log(paso)
             consumidor.acknowledge(mensaje)     
 
         cliente.close()
@@ -65,11 +73,15 @@ def suscribirse_a_eventos_ventas():
             mensaje = consumidor.receive()
             ex = mensaje.value()
             message = ex.data
-            print(f"PopertySold Recieved XXX: {message}")
+            print(f"PopertySold Recieved: {message}")
             if (message.property_id):
                 sp = ServicioPropiedad()
                 sp.actualizar_propiedad_vendida(message.property_id)
-
+                paso = Pasos()
+                paso.id_correlacion = uuid.uuid4()
+                paso.fecha_evento = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                paso.log = f"{PropertySoldEvent} - {message}"
+                sp.saga_log(paso)
             consumidor.acknowledge(mensaje)     
 
         cliente.close()
@@ -83,14 +95,14 @@ def suscribirse_a_eventos_companias():
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('company-events', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='company-sub-eventos', schema=AvroSchema(CompanyCreatedEvent))
+        consumidor = cliente.subscribe('company-property-events', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='company-sub-eventos', schema=AvroSchema(CompanyPropertyAssociatedEvent))
 
         while True:
             
             mensaje = consumidor.receive()
             ex = mensaje.value()
             message = ex.data
-            print(f"Company RecievedXXXXXXXXXXXXXXXXXXX: {message}")
+            print(f"Company Recieved: {message}")
             if (message.property_id):
                 sp = ServicioPropiedad()
                 sp.agregar_compania(message.property_id,Company(
@@ -102,7 +114,12 @@ def suscribirse_a_eventos_companias():
                     country = message.country,
                     created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     ))
-
+                
+                paso = Pasos()
+                paso.id_correlacion = uuid.uuid4()
+                paso.fecha_evento = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                paso.log = f"{CompanyPropertyAssociatedEvent} - {message}"
+                sp.saga_log(paso)
             consumidor.acknowledge(mensaje)     
 
         cliente.close()

@@ -1,13 +1,16 @@
+import logging
+import traceback
 from config.db import db
 from seedwork.aplicacion.servicios import Servicio
 from modulos.propiedades.infraestructura.fabricas import FabricaRepositorio
-from modulos.propiedades.infraestructura.dto import Propiedad as PropiedadDTOInf, Company as CompanyDTOInf
+from modulos.propiedades.infraestructura.dto import Pasos, Propiedad as PropiedadDTOInf, Company as CompanyDTOInf
 from modulos.propiedades.dominio.fabricas import FabricaPropiedades
 from modulos.propiedades.dominio.entidades import Propiedad
 from modulos.propiedades.dominio.objetos_valor import Company as Company_vo
-from modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades
+from modulos.propiedades.infraestructura.repositorios import RepositorioPropiedades, RepositorioSagaLog
 from seedwork.infraestructura.unit_of_work_prop import UnidadTrabajoPuerto
 from flask import Flask
+from random import *
 from .dto import PropiedadDTO
 from .mapeadores import MapeadorPropiedad
 import os
@@ -65,3 +68,14 @@ class ServicioPropiedad(Servicio):
                 db.session.commit()
         except Exception as e:
             print(f"Error actualizando: {e}")
+    
+    def saga_log(self, paso: Pasos):
+        try:
+            from modulos.propiedades.infraestructura.event_context import app
+            with app.app_context():
+                paso.index = randint(0,4)
+                db.session.add(paso)
+                db.session.commit()
+        except Exception as e:
+            logging.error("ERROR SERVICIO: {e}")
+            traceback.print_exc()

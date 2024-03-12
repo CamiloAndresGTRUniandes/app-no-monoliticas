@@ -42,3 +42,11 @@ class PropertyCompany(db.Model):
     __tablename__ = "property_company"
     property_id = db.Column(db.String, ForeignKey('propiedades.id'), primary_key=True)
     company_id = db.Column(db.String, ForeignKey('companies.id'), primary_key=True)
+
+
+class Pasos(db.Model):
+    __tablename__ = "pasos"
+    id_correlacion = db.Column(db.String, primary_key=True)
+    fecha_evento  = db.Column(db.DateTime, primary_key=True)
+    log = db.Column(db.String, primary_key=True)
+    index  = db.Column(db.Integer, primary_key=True)

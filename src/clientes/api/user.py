@@ -55,7 +55,7 @@ def login():
         if (query_result == 1):
             return Response('{}', status=400, mimetype='application/json')
         else:
-            return {"token": query_result.result}
+            return {"token": query_result.result}, 200
 
 
     except Exception as e:
