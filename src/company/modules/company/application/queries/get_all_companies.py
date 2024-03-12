@@ -20,12 +20,12 @@ class GetAllPropertiesHandler(CompanyQueryBaseHandler):
 
         for company in companies:
             dto = CompanyDTO()
-            dto.id = company.id
+            dto.id_company = company.id
             dto.name = company.name
-            dto.price = company.price
-            dto.currency = company.currency
-            dto.created_at = company.created_at
-            dto.seller = company.seller
+            dto.nit = company.nit
+            dto.address = company.address
+            dto.city = company.city
+            dto.country = company.country
             companies_dto.append(dto)
         return QueryResult(companies_dto)
     

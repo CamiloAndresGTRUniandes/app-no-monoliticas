@@ -16,18 +16,19 @@ def subscribe_to_events():
     client = None
     try:
         client = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumer = client.subscribe('companies-events', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='companies-sub-events', schema=AvroSchema(CompanyCreatedEvent))
+        consumer = client.subscribe('company-events', consumer_type=_pulsar.ConsumerType.Shared,subscription_name='companies-sub-events', schema=AvroSchema(CompanyCreatedEvent))
         
         while True:
             message = consumer.receive()
             ex = message.value()
             company_dto = ex.data
-            print(f'EVENT RECEIVED: {company_dto}')
+            print(f'EVENT RECEIVED IN COMPANY: {company_dto}')
             command = CreateCacheCompany(
                 name=company_dto.name,
-                price=company_dto.price,
-                currency=company_dto.currency,
-                seller=company_dto.seller)
+                nit=company_dto.nit,
+                address=company_dto.address,
+                city=company_dto.city,
+                country= company_dto.country)
             execute_command(command)
             consumer.acknowledge(message)     
 

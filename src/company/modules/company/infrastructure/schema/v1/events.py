@@ -15,3 +15,6 @@ class CompanyCreatedPayload(Record):
 
 class CompanyCreatedEvent(IntegrationEvent):
     data = CompanyCreatedPayload()
+
+class CompanyPropertyAssociatedEvent(IntegrationEvent):
+    data = CompanyCreatedPayload()

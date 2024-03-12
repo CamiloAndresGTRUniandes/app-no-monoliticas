@@ -34,6 +34,7 @@ class CreateCompanyHandler(CreateCompanyBaseHandler):
             
         company : Company = self.companies_factory.create_object(company_dto, MapperCompany())
         company.create_company(company, command.property_id)
+        company.add_property_association_event(command.property_id)
         repository = self.reposiroty_factory.create_object(CompanyRepository.__class__)
         UnitOfWorkPortCompany.register_batch(repository.add, company)
         UnitOfWorkPortCompany.commit()

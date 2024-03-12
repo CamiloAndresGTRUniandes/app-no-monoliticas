@@ -4,7 +4,7 @@ from seedwork.domain.entities import RootAggregation
 from modules.company.domain.value_objects import Seller
 from seedwork.domain.value_objects import Money
 from dataclasses import dataclass, field
-from modules.company.domain.events import CompanyCreated
+from modules.company.domain.events import CompanyCreated, CompanyPropertyAssociated
 
 
 @dataclass
@@ -34,6 +34,17 @@ class Company(RootAggregation):
             country =self.format_string(f"{self.country}"),
             property_id = property_id
         ))
+    def add_property_association_event(self, property_id):
+                self.add_event(CompanyPropertyAssociated(
+            id = str(self.id),
+            name = self.format_string(f"{self.name}"),
+            nit = self.format_string(f"{self.nit}"),
+            address =self.format_string(f"{self.address}"),
+            city =self.format_string(f"{self.city}"),
+            country =self.format_string(f"{self.country}"),
+            property_id = property_id
+        ))
+
     def format_string(self, string : str):
         string = string.replace("(","")
         string = string.replace(")","")
