@@ -10,3 +10,6 @@ from seedwork.dominio.repositorios import Repositorio
 
 class RepositorioPropiedades(Repositorio, ABC):
     ...
+
+class RepositorioSagas(Repositorio, ABC):
+    ...

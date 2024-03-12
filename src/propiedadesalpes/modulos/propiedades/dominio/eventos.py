@@ -24,3 +24,8 @@ class PropiedadCreada(EventoDominio):
     fecha_publicacion: datetime = None
     fecha_baja: datetime = None
     vendido: int = None
+
+@dataclass
+class CreacionPropiedadFallida(EventoDominio):
+    id_propiedad: uuid.UUID = None
+    estado: str = None

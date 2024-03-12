@@ -1,15 +1,9 @@
-""" Repositorios para el manejo de persistencia de objetos de dominio en la capa de infrastructura del dominio de vuelos
-
-En este archivo usted encontrará las diferentes repositorios para
-persistir objetos dominio (agregaciones) en la capa de infraestructura del dominio de vuelos
-
-"""
-
+import uuid
 from config.db import db
-from modulos.propiedades.dominio.repositorios import RepositorioPropiedades
+from modulos.propiedades.dominio.repositorios import RepositorioPropiedades, RepositorioSagas
 from modulos.propiedades.dominio.entidades import Propiedad
 from modulos.propiedades.dominio.fabricas import FabricaPropiedades
-from .dto import Propiedad as PropiedadDTO
+from .dto import Pasos, Propiedad as PropiedadDTO
 from .mapeadores import MappeadorPropiedad
 from uuid import UUID
 
@@ -43,4 +37,11 @@ class RepositorioPropiedadesRedis(RepositorioPropiedades):
 
     def agregar(self, propiedad: Propiedad):
         ...
+
+
+class RepositorioSagaLog(RepositorioSagas):
+     def agregar(self, pasos: Pasos):
+            if(pasos):
+                db.session.add(pasos)
+                db.session.commit()
         
