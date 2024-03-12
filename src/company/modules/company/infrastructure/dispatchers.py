@@ -1,3 +1,4 @@
+from modules.company.domain.events import CompanyCreated, CompanyPropertyAssociated
 import pulsar
 from pulsar.schema import *
 
@@ -5,7 +6,7 @@ import datetime
 import json
 
 from seedwork.infrastructure import utils
-from modules.company.infrastructure.schema.v1.events import CompanyCreatedEvent, CompanyCreatedPayload
+from modules.company.infrastructure.schema.v1.events import CompanyCreatedEvent, CompanyCreatedPayload, CompanyPropertyAssociatedEvent
 from modules.company.infrastructure.schema.v1.commands import CreateCompanyCommand, CreateCompanyPayload
 
 epoch = datetime.datetime.utcfromtimestamp(0)
@@ -16,9 +17,9 @@ def unix_time_millis(dt):
 class Dispatcher:
     def _publish_message(self, message, topic, schema):
         try:
+            print(f"TO PUBLISH IN TOPIC: {topic}")
             client = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-            producer = client.create_producer(topic, schema=AvroSchema(CompanyCreatedEvent))
-            print("publish message @@@@@@@@@@@@@@@@@@@@@@")
+            producer = client.create_producer(topic, schema=schema)
             producer.send(message)
             client.close()
         except Exception as ex:
@@ -26,7 +27,6 @@ class Dispatcher:
             raise ex
 
     def publish_event(self, event, topic):
-        print("XXXXXXXXXXXXXXXXXXXXXX LLEGO A PUBLISH VVVVVVVVVVVVVVVVVVVVVVVVVVV")
         payload = CompanyCreatedPayload(
             id = str(event.id),
             name = event.name,
@@ -37,9 +37,13 @@ class Dispatcher:
             created_at = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             property_id = event.property_id
         )
-        print(f"XXXXXXXXXXXXXXXXXXXXXX {payload} VVVVVVVVVVVVVVVVVVVVVVVVVVV")
-        integration_event = CompanyCreatedEvent(data= payload)
-        self._publish_message(integration_event, topic, AvroSchema(CompanyCreatedEvent))
+        if (event.__class__ == CompanyCreated):
+            integration_event = CompanyCreatedEvent(data= payload)
+            self._publish_message(integration_event, topic, AvroSchema(CompanyCreatedEvent))
+        elif(event.__class__==CompanyPropertyAssociated):   
+            integration_event = CompanyPropertyAssociatedEvent(data= payload)
+            self._publish_message(integration_event, topic, AvroSchema(CompanyPropertyAssociatedEvent))
+
 
     def publish_command(self, command, topic):
         payload = CreateCompanyPayload(
