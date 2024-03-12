@@ -22,7 +22,7 @@ def subscribe_to_events():
             message = consumer.receive()
             ex = message.value()
             property_dto = ex.data
-            print(f'EVENT RECEIVED: {property_dto}')
+            print(f'EVENT RECEIVED SALE CREATED EVENT: {property_dto}')
             command = CreateCacheSale(
                 name=property_dto.name,
                 price=property_dto.price,
@@ -48,6 +48,7 @@ def subscribe_to_commands():
             message = consumer.receive()
             ex = message.value()
             property_dto = ex.data
+            print(f'COMMAND RECEIVED SALE CREATED COMMAND: {property_dto}')
             command = CreateCacheSale(
                 name=property_dto.name,
                 price=property_dto.price,

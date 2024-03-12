@@ -8,7 +8,7 @@ import uuid
 import json
 from dataclasses import field
 from modules.sales.application.commands.base import CreatePropertyBaseHandler
-from modules.sales.application.dto import PropertyDTO
+from modules.sales.application.dto import SalesDTO
 
 from modules.sales.domain.entities import Sales
 from modules.sales.application.mappers import MapperProperty

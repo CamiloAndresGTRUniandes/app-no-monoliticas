@@ -2,7 +2,7 @@
 from modules.sales.application.queries.base import PropertyQueryBaseHandler
 from seedwork.application.queries import Query, QueryHandler, QueryResult
 from modules.sales.domain.entities import Sales
-from modules.sales.application.dto import PropertyDTO
+from modules.sales.application.dto import SalesDTO
 from seedwork.application.queries import execute_query as query
 from dataclasses import dataclass
 
@@ -19,7 +19,7 @@ class GetAllPropertiesHandler(PropertyQueryBaseHandler):
         sales = view.get_all()
 
         for sales in sales:
-            dto = PropertyDTO()
+            dto = SalesDTO()
             dto.id = sales.id
             dto.name = sales.name
             dto.price = sales.price

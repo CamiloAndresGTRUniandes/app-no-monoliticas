@@ -1,12 +1,12 @@
 from seedwork.application.dto import Mapper as AppMap
 from seedwork.domain.repositories import Mapper as RepMap
-from modules.sales.application.dto import PropertyDTO
+from modules.sales.application.dto import SalesDTO
 from modules.sales.domain.entities import Sales
 from seedwork.domain.value_objects import Money
 
 class MapperPropertyDTOJson(AppMap):
-    def external_to_dto(self, external: dict) -> PropertyDTO:
-        property_dto = PropertyDTO()
+    def external_to_dto(self, external: dict) -> SalesDTO:
+        property_dto = SalesDTO()
         property_dto.name = external.get('name'),
         property_dto.price = external.get('price'),
         property_dto.currency = external.get('currency'),
@@ -14,22 +14,22 @@ class MapperPropertyDTOJson(AppMap):
         return property_dto
     
 
-    def dto_to_external(self, dto: PropertyDTO) -> dict:
+    def dto_to_external(self, dto: SalesDTO) -> dict:
         return dto.__dict__
     
 class MapperProperty(RepMap):
     def get_type(self) -> type:
-        return PropertyDTO.__class__
+        return SalesDTO.__class__
 
-    def dto_to_entity(self, dto: PropertyDTO) -> Sales:
+    def dto_to_entity(self, dto: SalesDTO) -> Sales:
         property_entity = Sales()
         property_entity.name = dto.name
         property_entity.price = Money(dto.price, dto.currency)
         property_entity.property_id = dto.property_id
         return property_entity
     
-    def entity_to_dto(self, entity: Sales) -> PropertyDTO:
-        property_dto = PropertyDTO()
+    def entity_to_dto(self, entity: Sales) -> SalesDTO:
+        property_dto = SalesDTO()
         property_dto.id_property=entity.id,
         property_dto.name=entity.name,
         property_dto.price=entity.price.amount,
@@ -38,7 +38,7 @@ class MapperProperty(RepMap):
     
     def entity_to_external(self, entity: Sales) -> dict:
         return {
-            "property_id" : f"{entity.id_property}",
+            "property_id" : f"{entity.property_id}",
             "name" : f"{entity.name}",
             "price" : entity.price.amount,
             "currency" : entity.price.currency,

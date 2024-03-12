@@ -5,7 +5,7 @@ from seedwork.application.dto import DTO
 
 
 @dataclass
-class PropertyDTO(DTO):
+class SalesDTO(DTO):
     id_property : str = field(default_factory=str)
     name: str = field(default_factory=str)
     price: str = field(default_factory=str)

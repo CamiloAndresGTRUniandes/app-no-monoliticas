@@ -21,12 +21,6 @@ class Sales(RootAggregation):
         self.property_id = sales.property_id
         self.created_at = datetime.datetime.now()
 
-        self.add_event(SaleCreated(
-            name = self.format_string(f"{self.name}"),
-            price = self.format_string(f"{self.price.amount}"),
-            currency =self.format_string(f"{self.price.currency}"),
-            property_id = self.property_id
-        ))
         self.add_event(PropertySold(
             property_id = self.property_id,
             sold= 1
@@ -37,3 +31,11 @@ class Sales(RootAggregation):
         string = string.replace("'","")
         string = string.replace(",","")
         return string
+    
+    def add_created_event(self):
+        self.add_event(SaleCreated(
+            name = self.format_string(f"{self.name}"),
+            price = self.format_string(f"{self.price.amount}"),
+            currency =self.format_string(f"{self.price.currency}"),
+            property_id = self.property_id
+        ))
