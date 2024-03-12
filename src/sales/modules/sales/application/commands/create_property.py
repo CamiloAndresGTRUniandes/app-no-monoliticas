@@ -3,7 +3,7 @@ from seedwork.application.commands import Command, CommandHandler
 import uuid
 from dataclasses import field
 from modules.sales.application.commands.base import CreatePropertyBaseHandler
-from modules.sales.application.dto import PropertyDTO
+from modules.sales.application.dto import SalesDTO
 
 from modules.sales.domain.entities import Sales
 from modules.sales.application.mappers import MapperProperty
@@ -22,7 +22,7 @@ class CreateProperty(Command):
 
 class CreatePropertyHandler(CreatePropertyBaseHandler):
     def handle(self, command: CreateProperty):
-        property_dto = PropertyDTO()
+        property_dto = SalesDTO()
         property_dto.name = command.name,
         property_dto.price = command.price,
         property_dto.currency = command.currency
@@ -30,6 +30,7 @@ class CreatePropertyHandler(CreatePropertyBaseHandler):
             
         sales : Sales = self.properties_factory.create_object(property_dto, MapperProperty())
         sales.create_sale(sales)
+        sales.add_created_event()
         repository = self.reposiroty_factory.create_object(PropertyRepository.__class__)
         UnitOfWorkPortSales.register_batch(repository.add, sales)
         UnitOfWorkPortSales.commit()
