@@ -171,7 +171,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Casa para crear 69\",\r\n    \"nit\": \"123456-7\",\r\n    \"address\": \"Calle falsa 123\",\r\n    \"city\": \"LA\",\r\n    \"country\": \"EEUU\",\r\n    \"property_id\": \"cb8468c2-ee6f-4685-b527-869112f4878f\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Casa para crear 69\",\r\n    \"nit\": \"123456-7\",\r\n    \"address\": \"Calle falsa 123\",\r\n    \"city\": \"LA\",\r\n    \"country\": \"EEUU\",\r\n    \"property_id\": \"5d0efd5b-7d59-413f-8bc0-009435874969\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -221,7 +221,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Casa para crear 69\",\r\n    \"price\": 1,\r\n    \"currency\": \"USD\",\r\n    \"property_id\": \"cb8468c2-ee6f-4685-b527-869112f4878f\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Casa para crear 69\",\r\n    \"price\": 1,\r\n    \"currency\": \"USD\",\r\n    \"property_id\": \"c3bdd8b5-45d2-4dc9-a567-66caefa37dfd\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -231,6 +231,220 @@
 						"url": "http://127.0.0.1:7000/sales"
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "bff_web",
+			"item": [
+				{
+					"name": "Propiedades",
+					"item": [
+						{
+							"name": "CreatePropiedad Bff",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var body = JSON.parse(responseBody);\r",
+											"    postman.setEnvironmentVariable(\"id_propiedad\", body.id_propiedad);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{tokenClaims}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Casa para crear 70-69\",\r\n    \"descripcion\": \"La casa de Elisa\",\r\n    \"direccion\":\"Calle falsa 123\",\r\n    \"precio\":10,\r\n    \"tipo\": 1,\r\n    \"estado\": 1,\r\n    \"habitaciones\":2,\r\n    \"banos\": 1,\r\n    \"estacionamientos\": 1,\r\n    \"superficie\": 1,\r\n    \"imagen\": \"http://enlace-a-una-imagen\",\r\n    \"vendido\" : 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:10000/api/v1/propiedades/crear"
+							},
+							"response": []
+						},
+						{
+							"name": "Get propiedades BFF",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://127.0.0.1:10000/api/v1/propiedades"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Usuarios",
+					"item": [
+						{
+							"name": "CreateUser BFF",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"firstName\",\r\n    \"lastName\":\"lastName\",\r\n    \"userName\":\"userName\",\r\n    \"password\":\"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:10000/api/v1/propiedades/usuario/registrar"
+							},
+							"response": []
+						},
+						{
+							"name": "Login BFF",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\": \"userName\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:10000/api/v1/propiedades/usuario/login"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ventas",
+					"item": [
+						{
+							"name": "Create Sales BFF",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var body = JSON.parse(responseBody);\r",
+											"    postman.setEnvironmentVariable(\"id_propiedad\", body.id_propiedad);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{tokenClaims}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Casa para crear 69\",\r\n    \"price\": 1,\r\n    \"currency\": \"USD\",\r\n    \"property_id\": \"5d0efd5b-7d59-413f-8bc0-009435874969\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:10000/api/v1/propiedades/ventas/crear"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Sales BFF",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var body = JSON.parse(responseBody);\r",
+											"    postman.setEnvironmentVariable(\"id_propiedad\", body.id_propiedad);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{tokenClaims}}"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": "http://127.0.0.1:10000/api/v1/propiedades/ventas"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "companies",
+					"item": [
+						{
+							"name": "Get companies BFF",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://127.0.0.1:10000/api/v1/propiedades/company"
+							},
+							"response": []
+						},
+						{
+							"name": "CreateCompany BFF",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var body = JSON.parse(responseBody);\r",
+											"    postman.setEnvironmentVariable(\"id_propiedad\", body.id_propiedad);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{tokenClaims}}"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Casa para crear 69\",\r\n    \"nit\": \"123456-7\",\r\n    \"address\": \"Calle falsa 123\",\r\n    \"city\": \"LA\",\r\n    \"country\": \"EEUU\",\r\n    \"property_id\": \"5d0efd5b-7d59-413f-8bc0-009435874969\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://127.0.0.1:10000/api/v1/propiedades/company/crear"
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
